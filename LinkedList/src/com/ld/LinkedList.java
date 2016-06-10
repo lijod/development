@@ -80,7 +80,7 @@ public class LinkedList <T> {
 	@Override
 	public String toString() {
 		if(this.head == null) {
-			return "";
+			return "null";
 		} else if(this.head.next == null) {
 			return this.head.data.toString();
 		} else {
