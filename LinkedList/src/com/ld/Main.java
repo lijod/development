@@ -30,7 +30,12 @@ public class Main {
 //		
 //		System.out.println(linkedList);
 		
-		System.out.println(linkedList.findMiddleElement());
+//		System.out.println(linkedList.findMiddleElement());
+//		System.out.println(linkedList.findNthElementFromEnd(0));
+		
+		linkedList.reverse_rec();
+		
+		System.out.println(linkedList);
 	}
 
 }

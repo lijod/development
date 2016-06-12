@@ -195,6 +195,78 @@ public class LinkedList <T> {
 		
 		return slowPointer != null ? slowPointer.data : null;
 	}
+	
+	public T findNthElementFromEnd(int n) {
+		Node slowPointer = this.head;
+		Node fastPointer = this.head;
+		int counter = 0;
+		
+		if(this.head== null || n <= 0) {
+			return null;
+		}
+		
+		while(counter < n) {
+			if(fastPointer == null) {
+				return null;
+			}
+			fastPointer = fastPointer.next;
+			counter++;
+		}
+		
+		while(fastPointer != null) {
+			fastPointer = fastPointer.next;
+			slowPointer = slowPointer.next;
+		}
+		
+		return slowPointer.data;
+	} 
+
+	public void reverse_itr() {
+		
+		if(this.head == null) {
+			return;
+		}
+		
+		Node prev = null;
+		Node current = this.head;
+		Node next = null;
+		
+		while(current != null) {
+			next = current.next;
+			current.next = prev;
+			prev = current;
+			current = next;
+		}
+		
+		this.head = prev;
+		
+	}
+	
+	public void reverse_rec() {
+		if(this.head == null) {
+			return;
+		}
+		
+		reverseRecHelper(this.head);
+		
+	}
+	
+	private void reverseRecHelper(Node current) {
+		Node first = current;
+		Node rest = current.next;
+		
+		if(rest == null) {
+			this.head = first;
+			return;
+		}
+		
+		reverseRecHelper(rest);
+		
+		first.next.next = first;
+		
+		first.next = null;
+		
+	}
 
 	@Override
 	public String toString() {
