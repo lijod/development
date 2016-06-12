@@ -77,6 +77,125 @@ public class LinkedList <T> {
 		return 1 + size_rec_helper(node.next);
 	}
 	
+	public boolean hasElement_itr(T value) {
+		Node temp = this.head;
+		
+		if(temp == null) {
+			return false;
+		}
+		
+		while(temp != null) {
+			if(temp.data.equals(value)) {
+				return true;
+			}
+			temp = temp.next;
+		}
+		
+		return false;
+	}
+	
+	public boolean hasElement_rec(T value) {
+		Node temp = this.head;
+		
+		if(temp == null) {
+			return false;
+		}
+		
+		return hasElementHelper(temp, value);
+	}
+	
+	private boolean hasElementHelper(Node node, T value) {
+		if(node == null) {
+			return false;
+		}
+		
+		if(node.data.equals(value)) {
+			return true;
+		}
+		
+		return false || hasElementHelper(node.next, value);
+	}
+	
+	public void swap(T value1, T value2) {
+		
+		Node curr1 = null;
+		Node curr2 = null;
+		Node prev1 = null;
+		Node prev2 = null;
+		
+		Node temp = this.head;
+		
+		if(temp == null) {
+			return;
+		}
+		
+		// Find the first element and its previous element
+		while(temp != null) {
+			if(temp.data.equals(value1)) {
+				curr1 = temp;
+				break;
+			}
+			prev1 = temp;
+			temp = temp.next;
+		}
+		
+		temp = this.head;
+		
+		// Find the second element and its previous element
+		while(temp != null) {
+			if(temp.data.equals(value2)) {
+				curr2 = temp;
+				break;
+			}
+			prev2 = temp;
+			temp = temp.next;
+		}
+		
+		// Check if both are present in the list
+		if(curr1 == null || curr2 == null) {
+			return;
+		}
+		
+		// If curr1 is the head, make curr2 the head
+		if(prev1 == null) {
+			this.head = curr2;
+		} else {
+			// If curr1 is not the head, point prev1.next to curr2
+			prev1.next = curr2;
+		}
+		
+		// If curr2 is the head, make curr1 the head
+		if(prev2 == null) {
+			this.head = curr1;
+		} else {
+			// If curr2 is not the head, point prev2.next to curr1
+			prev2.next = curr1;
+		}
+		
+		// Swap next element of both curr1 and curr2
+		Node tempNext = curr1.next;
+		curr1.next = curr2.next;
+		curr2.next = tempNext;
+		
+	}
+	
+	public T findMiddleElement() {
+		
+		if(this.head == null) {
+			return null;
+		}
+		
+		Node slowPointer = this.head;
+		Node fastPointer = this.head;
+		
+		while(fastPointer != null && fastPointer.next != null) {
+			slowPointer = slowPointer.next;
+			fastPointer = fastPointer.next.next;
+		}
+		
+		return slowPointer != null ? slowPointer.data : null;
+	}
+
 	@Override
 	public String toString() {
 		if(this.head == null) {
