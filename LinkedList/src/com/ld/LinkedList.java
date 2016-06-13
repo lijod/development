@@ -1,6 +1,6 @@
 package com.ld;
 
-public class LinkedList <T> {
+public class LinkedList <T extends Comparable<T>> {
 
 	private class Node {
 		protected T data;
@@ -13,17 +13,18 @@ public class LinkedList <T> {
 	
 	private Node head;
 	
-	public void add(T data) {
+	public Node add(T data) {
 		Node temp = this.head;
 		if(temp == null) {
 			this.head = new Node(data);
-			return;
+			return this.head;
 		}
 		while(temp.next != null) {
 			temp = temp.next;
 		}
 		
 		temp.next = new Node(data);
+		return temp.next;
 	}
 	
 	public void delete(T data) {
@@ -267,7 +268,63 @@ public class LinkedList <T> {
 		first.next = null;
 		
 	}
+	
+	public boolean hasLoop() {
+		Node slowNode = this.head;
+		Node fastNode = this.head;
+		
+		while(fastNode != null && fastNode.next != null) {
+			slowNode = slowNode.next;
+			fastNode = fastNode.next.next;
+			
+			if(slowNode == fastNode) {
+				return true;
+			}
+			
+		}
+		
+		return false;
+	}
 
+	public LinkedList<T> mergeSort(LinkedList<T> ll1, LinkedList<T> ll2) {
+		LinkedList<T> resultList = new LinkedList<>();
+		Node resultTailNode = null;
+		Node ll1Head = ll1.head;
+		Node ll2Head = ll2.head;
+		if(ll1Head == null) {
+			return ll2;
+		}
+		
+		if(ll2Head == null) {
+			return ll1;
+		}
+		
+		
+		while(true) {
+			if(ll1Head == null && ll2Head == null) {
+				break;
+			}
+			
+			if(ll1Head == null) {
+				resultTailNode = resultList.add(ll2Head.data);
+				ll2Head = ll2Head.next;
+			} else if(ll2Head == null) {
+				resultTailNode = resultList.add(ll1Head.data);
+				ll1Head = ll1Head.next;
+			} else {
+				if(ll1Head.data.compareTo(ll2Head.data) <= 0) {
+					resultTailNode = resultList.add(ll1Head.data);
+					ll1Head = ll1Head.next;
+				} else {
+					resultTailNode = resultList.add(ll2Head.data);
+					ll2Head = ll2Head.next;
+				}
+			}
+		}
+		
+		return resultList;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
