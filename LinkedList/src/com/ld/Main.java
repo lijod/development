@@ -33,9 +33,20 @@ public class Main {
 //		System.out.println(linkedList.findMiddleElement());
 //		System.out.println(linkedList.findNthElementFromEnd(0));
 		
-		linkedList.reverse_rec();
+//		linkedList.reverse_rec();
 		
-		System.out.println(linkedList);
+		LinkedList<String> linkedList2 = new LinkedList<>();
+		
+		linkedList2.add("A");
+		linkedList2.add("B");
+		linkedList2.add("G");
+		linkedList2.add("H");
+		linkedList2.add("I");
+		linkedList2.add("Z");
+		
+		System.out.println(linkedList2);
+		
+		System.out.println(linkedList.mergeSort(linkedList, linkedList2));
 	}
 
 }

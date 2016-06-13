@@ -13,6 +13,12 @@ public class LinkedList <T extends Comparable<T>> {
 	
 	private Node head;
 	
+	public LinkedList() {}
+	
+	private LinkedList(Node head) {
+		this.head = head;
+	}
+	
 	public Node add(T data) {
 		Node temp = this.head;
 		if(temp == null) {
@@ -287,48 +293,42 @@ public class LinkedList <T extends Comparable<T>> {
 	}
 
 	public LinkedList<T> mergeSort(LinkedList<T> ll1, LinkedList<T> ll2) {
-		LinkedList<T> resultList = new LinkedList<>();
-		Node resultTailNode = null;
 		Node ll1Head = ll1.head;
-		Node ll2Head = ll2.head;
-		if(ll1Head == null) {
-			return ll2;
+		Node ll2Head = ll2.head;		
+		
+		if(ll1Head == null && ll2Head == null) {
+			return  null;
 		}
 		
-		if(ll2Head == null) {
-			return ll1;
+		return new LinkedList<T> (merge(ll1Head, ll2Head));
+	}
+	
+	private Node merge(Node head1, Node head2) {
+		Node result = null;
+		
+		if(head1 == null) {
+			return head2;
 		}
 		
-		
-		while(true) {
-			if(ll1Head == null && ll2Head == null) {
-				break;
-			}
-			
-			if(ll1Head == null) {
-				resultTailNode = resultList.add(ll2Head.data);
-				ll2Head = ll2Head.next;
-			} else if(ll2Head == null) {
-				resultTailNode = resultList.add(ll1Head.data);
-				ll1Head = ll1Head.next;
-			} else {
-				if(ll1Head.data.compareTo(ll2Head.data) <= 0) {
-					resultTailNode = resultList.add(ll1Head.data);
-					ll1Head = ll1Head.next;
-				} else {
-					resultTailNode = resultList.add(ll2Head.data);
-					ll2Head = ll2Head.next;
-				}
-			}
+		if(head2 == null) {
+			return head1;
 		}
 		
-		return resultList;
+		if(head1.data.compareTo(head2.data) <= 0) {
+			result = head1;
+			result.next = merge(head1.next, head2);
+		} else if(head1.data.compareTo(head2.data) > 0) {
+			result = head2;
+			result.next = merge(head1, head2.next);
+		}
+		
+		return result;
 	}
 	
 	@Override
 	public String toString() {
 		if(this.head == null) {
-			return "null";
+			return null;
 		} else if(this.head.next == null) {
 			return this.head.data.toString();
 		} else {
