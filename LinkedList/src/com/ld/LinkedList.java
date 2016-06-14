@@ -11,6 +11,11 @@ public class LinkedList <T extends Comparable<T>> {
 		public Node(T data) {
 			this.data = data;
 		}
+		
+		@Override
+		public String toString() {
+			return data.toString();
+		}
 	}
 	
 	private Node head;
@@ -282,6 +287,23 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	private Node reverseRecWithHead(Node current, Node head) {
+		Node first = current;
+		Node rest = current.next;
+		
+		if(rest == null) {
+			head = first;
+			return head;
+		}
+		
+		head = reverseRecWithHead(rest, head);
+		
+		first.next.next = first;
+		
+		first.next = null;
+		return head;
+	}
+	
 	public boolean hasLoop() {
 		Node slowNode = this.head;
 		Node fastNode = this.head;
@@ -373,6 +395,56 @@ public class LinkedList <T extends Comparable<T>> {
 		}
 		
 		return null;
+	}
+	
+	public boolean isPalindrome_itr() {
+		
+		Node slowPointer = this.head;
+		Node fastPointer = this.head;
+		Node secondHalf = null;
+		Node prevOfSlow = null;
+		Node midNode = null;
+		// Finding midpoint
+		while(fastPointer != null && fastPointer.next != null) {
+			fastPointer = fastPointer.next.next;
+			prevOfSlow = slowPointer;
+			slowPointer = slowPointer.next;
+		}
+		
+		// Moving the slow pointer by one node to ignore the middle node 
+		// in case of odd nodes
+		if(fastPointer != null) {
+			midNode = slowPointer;
+			slowPointer = slowPointer.next;
+		}
+		
+		secondHalf = slowPointer;
+		Node firstHalf = this.head;
+		// reverse the second half
+		secondHalf = reverseRecWithHead(secondHalf, null);
+		slowPointer = secondHalf;
+		boolean isPalindrome = true;
+		while(secondHalf != null) {
+			if(!firstHalf.data.equals(secondHalf.data)) {
+				isPalindrome = false;
+				break;
+			}
+			firstHalf = firstHalf.next;
+			secondHalf = secondHalf.next;
+		}
+		
+		// Reverse the second half again to bring it back to original state
+		slowPointer = reverseRecWithHead(slowPointer, null);
+		
+		// Construct the original linked list
+		if(midNode != null) {
+			prevOfSlow.next = midNode;
+			midNode.next = slowPointer;
+		} else {
+			prevOfSlow.next = slowPointer;
+		}
+		
+		return isPalindrome;
 	}
 	
 	@Override

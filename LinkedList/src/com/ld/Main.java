@@ -7,10 +7,11 @@ public class Main {
 		
 		linkedList.add("A");
 		linkedList.add("B");
-		linkedList.add("C");
-		linkedList.add("D");
-		linkedList.add("E");
-		linkedList.add("F");
+		linkedList.add("G");
+		linkedList.add("H");
+		linkedList.add("I");
+		linkedList.add("Z");
+//		
 		
 		System.out.println(linkedList);
 		
@@ -48,9 +49,9 @@ public class Main {
 //		
 //		System.out.println(linkedList.mergeSort(linkedList, linkedList2));
 		
-		linkedList.deleteNodeWithData("F");
+//		linkedList.deleteNodeWithData("F");
 		
-		System.out.println(linkedList);
+		System.out.println(linkedList.isPalindrome_itr());
 	}
 
 }
