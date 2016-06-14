@@ -3,7 +3,7 @@ package com.ld;
 public class Main {
 
 	public static void main(String[] args) {
-		LinkedList<String> linkedList = new LinkedList<>();
+		LinkedList<String> linkedList = new LinkedList<>(String.class);
 		
 		linkedList.add("A");
 		linkedList.add("B");
@@ -35,18 +35,22 @@ public class Main {
 		
 //		linkedList.reverse_rec();
 		
-		LinkedList<String> linkedList2 = new LinkedList<>();
+//		LinkedList<String> linkedList2 = new LinkedList<>();
+//		
+//		linkedList2.add("A");
+//		linkedList2.add("B");
+//		linkedList2.add("G");
+//		linkedList2.add("H");
+//		linkedList2.add("I");
+//		linkedList2.add("Z");
+//		
+//		System.out.println(linkedList2);
+//		
+//		System.out.println(linkedList.mergeSort(linkedList, linkedList2));
 		
-		linkedList2.add("A");
-		linkedList2.add("B");
-		linkedList2.add("G");
-		linkedList2.add("H");
-		linkedList2.add("I");
-		linkedList2.add("Z");
+		linkedList.deleteNodeWithData("F");
 		
-		System.out.println(linkedList2);
-		
-		System.out.println(linkedList.mergeSort(linkedList, linkedList2));
+		System.out.println(linkedList);
 	}
 
 }

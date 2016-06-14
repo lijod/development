@@ -1,5 +1,7 @@
 package com.ld;
 
+import org.w3c.dom.Node;
+
 public class LinkedList <T extends Comparable<T>> {
 
 	private class Node {
@@ -12,8 +14,13 @@ public class LinkedList <T extends Comparable<T>> {
 	}
 	
 	private Node head;
+	private Class<T> TClazz;
 	
 	public LinkedList() {}
+	
+	public LinkedList(Class<T> clazz) {
+		this.TClazz = clazz;
+	}
 	
 	private LinkedList(Node head) {
 		this.head = head;
@@ -323,6 +330,49 @@ public class LinkedList <T extends Comparable<T>> {
 		}
 		
 		return result;
+	}
+	
+	public void deleteNodeWithData(T data) {
+		Node nodeToDelete = findNodeByData(data);
+		deleteCurrentNode(nodeToDelete);
+	}
+	
+	private void deleteCurrentNode(Node nodeToDelete) {
+		if(nodeToDelete == null) {
+			return;
+		}
+		
+		if(nodeToDelete.next == null) {
+			nodeToDelete.next = new Node(getInstanceOfT());
+		}
+		
+		nodeToDelete.data = nodeToDelete.next.data;
+		nodeToDelete.next = nodeToDelete.next.next;
+		
+	}
+	
+	private T getInstanceOfT() {
+		try {
+			return TClazz.newInstance();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public Node findNodeByData(T data) {
+		
+		Node temp = this.head;
+		while(temp != null) {
+			if(temp.data.equals(data)) {
+				return temp;
+			}
+			temp = temp.next;
+		}
+		
+		return null;
 	}
 	
 	@Override
