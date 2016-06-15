@@ -447,6 +447,29 @@ public class LinkedList <T extends Comparable<T>> {
 		return isPalindrome;
 	}
 	
+	public void insertInSortedList(T data) {
+		Node temp = this.head;
+		Node newNode = new Node(data);
+		
+		if(temp == null || data.compareTo(temp.data) <= 0) {
+			newNode.next = temp;
+			this.head = newNode;
+			return;
+		}
+		
+		Node prev = null;
+		while(temp != null && temp.next != null) {
+			prev = temp;
+			temp = temp.next;
+			if(data.compareTo(temp.data) <= 0) {
+				newNode.next = temp;
+				return;
+			}
+		}
+		
+		temp.next = newNode;		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
