@@ -509,6 +509,21 @@ public class LinkedList <T extends Comparable<T>> {
 		return null;
 	}
 
+	public void printReverse() {
+		printReverseHelper(this.head);
+	}
+	
+	private void printReverseHelper(Node node) {
+		
+		if(node == null) {
+			return;
+		}
+		
+		printReverseHelper(node.next);
+		
+		System.out.println(node.data);
+	}
+
 	@Override
 	public String toString() {
 		if(this.head == null) {
