@@ -1,10 +1,8 @@
 package com.ld;
 
-import org.w3c.dom.Node;
-
 public class LinkedList <T extends Comparable<T>> {
 
-	private class Node {
+	public class Node {
 		protected T data;
 		protected Node next;
 		
@@ -27,7 +25,7 @@ public class LinkedList <T extends Comparable<T>> {
 		this.TClazz = clazz;
 	}
 	
-	private LinkedList(Node head) {
+	public LinkedList(Node head) {
 		this.head = head;
 	}
 	
@@ -69,7 +67,11 @@ public class LinkedList <T extends Comparable<T>> {
 	}
 	
 	public int size_itr() {
-		Node temp = this.head;
+		return size_itr_helper(this);
+	}
+	
+	public int size_itr_helper(LinkedList<T> linkedList) {
+		Node temp = linkedList.head;
 		if(temp == null) {
 			return 0;
 		}
@@ -470,6 +472,43 @@ public class LinkedList <T extends Comparable<T>> {
 		temp.next = newNode;		
 	}
 	
+	public T getIntersectionNode(LinkedList<T> ll1, LinkedList<T> ll2) {
+		
+		int c1 = size_itr_helper(ll1);
+		int c2 = size_itr_helper(ll2);
+		
+		if(c1 == 0 || c2 == 0) {
+			return null;
+		}
+		
+		if(c1 >= c2) {
+			return getIntersectionNodeHelper(c1 - c2, ll1.head, ll2.head);
+		} else {
+			return getIntersectionNodeHelper(c2 - c1, ll2.head, ll1.head);
+		}
+		
+	}
+	
+	
+	private T getIntersectionNodeHelper(int lenDiff, Node node1, Node node2) {
+		while(lenDiff-- > 0) {
+			if(node1 == null) {
+				return null;
+			}
+			node1 = node1.next;
+		}
+		
+		while(node1 != null && node2 != null) {
+			if(node1 == node2) {				
+				return node1.data;
+			}
+			node1 = node1.next;
+			node2 = node2.next;
+		}
+		
+		return null;
+	}
+
 	@Override
 	public String toString() {
 		if(this.head == null) {
