@@ -524,6 +524,20 @@ public class LinkedList <T extends Comparable<T>> {
 		System.out.println(node.data);
 	}
 
+	public void removeDuplicatesFromSorted() {
+		Node node = this.head;
+		if(node == null) {
+			return;
+		}
+		while(node.next != null) {
+			if(node.data.equals(node.next.data)) {
+				node.next = node.next.next;
+			} else {				
+				node = node.next;
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

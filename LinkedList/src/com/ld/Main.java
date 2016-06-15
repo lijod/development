@@ -73,8 +73,11 @@ public class Main {
 //		
 //		System.out.println(linkedList.getIntersectionNode(new LinkedList<>(node1), new LinkedList<>(node6)));
 		
-		linkedList.printReverse();
+//		linkedList.printReverse();
 		
+		linkedList.removeDuplicatesFromSorted();
+		
+		System.out.println(linkedList);
 	}
 
 }
