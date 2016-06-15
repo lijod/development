@@ -7,10 +7,10 @@ public class Main {
 		
 		linkedList.add("A");
 		linkedList.add("B");
-		linkedList.add("G");
-		linkedList.add("H");
-		linkedList.add("I");
-		linkedList.add("Z");
+		linkedList.add("C");
+		linkedList.add("C");
+		linkedList.add("B");
+		linkedList.add("A");
 //		
 		
 		System.out.println(linkedList);
