@@ -36,14 +36,14 @@ public class Main {
 		
 //		linkedList.reverse_rec();
 		
-//		LinkedList<String> linkedList2 = new LinkedList<>();
-//		
-//		linkedList2.add("A");
-//		linkedList2.add("B");
-//		linkedList2.add("G");
-//		linkedList2.add("H");
-//		linkedList2.add("I");
-//		linkedList2.add("Z");
+		LinkedList<String> linkedList2 = new LinkedList<>();
+		
+		linkedList2.add("A");
+		linkedList2.add("B");
+		linkedList2.add("G");
+		linkedList2.add("H");
+		linkedList2.add("I");
+		linkedList2.add("Z");
 //		
 //		System.out.println(linkedList2);
 //		
@@ -78,9 +78,11 @@ public class Main {
 //		linkedList.swapPairwise_itr();
 //		linkedList.swapPairwise_rec();
 		
-		linkedList.moveToLast();
+//		linkedList.moveToLast();
 		
-		System.out.println(linkedList);
+		System.out.println(linkedList2);
+		
+		System.out.println(linkedList.getIntersection(linkedList2));
 	}
 
 }

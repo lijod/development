@@ -1,5 +1,8 @@
 package com.ld;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LinkedList <T extends Comparable<T>> {
 
 	public class Node {
@@ -603,6 +606,28 @@ public class LinkedList <T extends Comparable<T>> {
 		prev.next = null;
 		node.next = this.head;
 		this.head = node;
+	}
+	
+	public LinkedList<T> getIntersection(LinkedList<T> otherLinkedList) {
+		LinkedList<T> toReturn = new LinkedList<>();
+		
+		Node thisNode = this.head;
+		Node otherNode = otherLinkedList.head;
+		Set<T> set = new HashSet<>();
+		
+		while(thisNode != null) {
+			set.add(thisNode.data);
+			thisNode = thisNode.next;
+		}
+		
+		while(otherNode != null) {
+			if(set.contains(otherNode.data)) {
+				toReturn.add(otherNode.data);
+			}
+			otherNode = otherNode.next;
+		}
+		
+		return toReturn;
 	}
 	
 	@Override
