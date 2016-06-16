@@ -608,7 +608,7 @@ public class LinkedList <T extends Comparable<T>> {
 		this.head = node;
 	}
 	
-	public LinkedList<T> getIntersection(LinkedList<T> otherLinkedList) {
+	public LinkedList<T> getIntersection_itr(LinkedList<T> otherLinkedList) {
 		LinkedList<T> toReturn = new LinkedList<>();
 		
 		Node thisNode = this.head;
@@ -629,6 +629,29 @@ public class LinkedList <T extends Comparable<T>> {
 		
 		return toReturn;
 	}
+	
+	public LinkedList<T> getIntersection_rec(LinkedList<T> otherLinkedList) {
+		Node node = getIntersection_rec_helper(this.head, otherLinkedList.head);
+		return node != null ? new LinkedList<T>(node) : null;
+	}
+	
+	private Node getIntersection_rec_helper(Node node1, Node node2) {
+		if(node1 == null || node2 == null) {
+			return null;
+		}
+		
+		if(node1.data.compareTo(node2.data) < 0) {
+			return getIntersection_rec_helper(node1.next, node2);
+		} else if(node1.data.compareTo(node2.data) < 0) {
+			return getIntersection_rec_helper(node1, node2.next);
+		}
+		
+		// Executed only when values are same
+		Node node = new Node(node1.data);
+		node.next = getIntersection_rec_helper(node1.next, node2.next);
+		
+		return node;
+	} 
 	
 	@Override
 	public String toString() {

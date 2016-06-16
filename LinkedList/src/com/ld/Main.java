@@ -82,7 +82,9 @@ public class Main {
 		
 		System.out.println(linkedList2);
 		
-		System.out.println(linkedList.getIntersection(linkedList2));
+//		System.out.println(linkedList.getIntersection_itr(linkedList2));
+
+		System.out.println(linkedList.getIntersection_rec(linkedList2));
 	}
 
 }
