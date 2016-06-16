@@ -587,6 +587,24 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	public void moveToLast() {
+		if(this.head == null || this.head.next == null) {
+			return;
+		}
+		
+		Node node = this.head;
+		Node prev = null;
+		
+		while(node != null && node.next != null) {
+			prev = node;
+			node = node.next;
+		}
+		
+		prev.next = null;
+		node.next = this.head;
+		this.head = node;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

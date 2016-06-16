@@ -1,7 +1,5 @@
 package com.ld;
 
-import com.ld.LinkedList.Node;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -78,7 +76,9 @@ public class Main {
 //		linkedList.removeDuplicatesFromSorted();
 		
 //		linkedList.swapPairwise_itr();
-		linkedList.swapPairwise_rec();
+//		linkedList.swapPairwise_rec();
+		
+		linkedList.moveToLast();
 		
 		System.out.println(linkedList);
 	}
