@@ -653,7 +653,7 @@ public class LinkedList <T extends Comparable<T>> {
 		return node;
 	} 
 	
-	public void deleteAlternateNodes() {
+	public void deleteAlternateNodes_itr() {
 		
 		Node node = this.head;
 		
@@ -668,6 +668,21 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	public void deleteAlternateNodes_rec() {
+		deleteAlternateNodes_rec_helper(this.head);
+	}
+	
+	private void deleteAlternateNodes_rec_helper(Node node) {
+		if(node == null || node.next == null) {
+			return;
+		}
+		
+		node.next = node.next.next;
+		
+		deleteAlternateNodes_rec_helper(node.next);
+		
+	}
+
 	@Override
 	public String toString() {
 		if(this.head == null) {

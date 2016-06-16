@@ -86,7 +86,9 @@ public class Main {
 
 //		System.out.println(linkedList.getIntersection_rec(linkedList2));
 		
-		linkedList.deleteAlternateNodes();
+//		linkedList.deleteAlternateNodes_itr();
+
+		linkedList.deleteAlternateNodes_rec();
 		
 		System.out.println(linkedList);
 	}
