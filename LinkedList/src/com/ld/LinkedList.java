@@ -653,6 +653,21 @@ public class LinkedList <T extends Comparable<T>> {
 		return node;
 	} 
 	
+	public void deleteAlternateNodes() {
+		
+		Node node = this.head;
+		
+		if(node == null) {
+			return;
+		}
+		
+		while(node != null && node.next != null) {
+			node.next = node.next.next;
+			node = node.next;
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
