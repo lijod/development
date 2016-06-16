@@ -538,6 +538,55 @@ public class LinkedList <T extends Comparable<T>> {
 		}
 	}
 	
+	public void swapPairwise_itr() {
+		
+		if(this.head == null || this.head.next == null) {
+			return;
+		}
+		
+		Node prev = null;
+		Node curr = this.head;
+		
+		while(curr != null && curr.next != null) {
+			Node nextSwapNode = curr.next.next;
+			
+			// Check if this is the first node, if so mark the 2nd node as head
+			if(prev == null) {
+				this.head = curr.next;
+			} else {
+				prev.next = curr.next;
+			}
+			
+			curr.next.next = curr;
+			curr.next = nextSwapNode;
+			
+			prev = curr;
+			curr = nextSwapNode;
+			
+		}
+		
+	}
+	
+	public void swapPairwise_rec() {
+		this.head = swapPairwise_rec_helper(this.head);
+	}
+	
+	private Node swapPairwise_rec_helper(Node node) {
+		
+		if(node == null || node.next == null) {
+			return node;
+		}
+		
+		Node head = node.next;
+		//For next iteration
+		Node temp = node.next.next;
+		node.next.next = node;
+		node.next = swapPairwise_rec_helper(temp);
+		
+		return head;
+		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

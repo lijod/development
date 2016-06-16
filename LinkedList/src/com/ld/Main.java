@@ -75,7 +75,10 @@ public class Main {
 		
 //		linkedList.printReverse();
 		
-		linkedList.removeDuplicatesFromSorted();
+//		linkedList.removeDuplicatesFromSorted();
+		
+//		linkedList.swapPairwise_itr();
+		linkedList.swapPairwise_rec();
 		
 		System.out.println(linkedList);
 	}
