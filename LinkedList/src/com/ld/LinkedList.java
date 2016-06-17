@@ -292,21 +292,20 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
-	private Node reverseRecWithHead(Node current, Node head) {
+	private Node reverseRecWithHead(Node current) {
 		Node first = current;
 		Node rest = current.next;
 		
 		if(rest == null) {
-			head = first;
-			return head;
+			return first;
 		}
 		
-		head = reverseRecWithHead(rest, head);
+		Node node = reverseRecWithHead(rest);
 		
 		first.next.next = first;
 		
 		first.next = null;
-		return head;
+		return node;
 	}
 	
 	public boolean hasLoop() {
@@ -426,7 +425,7 @@ public class LinkedList <T extends Comparable<T>> {
 		secondHalf = slowPointer;
 		Node firstHalf = this.head;
 		// reverse the second half
-		secondHalf = reverseRecWithHead(secondHalf, null);
+		secondHalf = reverseRecWithHead(secondHalf);
 		slowPointer = secondHalf;
 		boolean isPalindrome = true;
 		while(secondHalf != null) {
@@ -439,7 +438,7 @@ public class LinkedList <T extends Comparable<T>> {
 		}
 		
 		// Reverse the second half again to bring it back to original state
-		slowPointer = reverseRecWithHead(slowPointer, null);
+		slowPointer = reverseRecWithHead(slowPointer);
 		
 		// Construct the original linked list
 		if(midNode != null) {

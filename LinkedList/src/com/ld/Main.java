@@ -88,7 +88,7 @@ public class Main {
 		
 //		linkedList.deleteAlternateNodes_itr();
 
-		linkedList.deleteAlternateNodes_rec();
+//		linkedList.deleteAlternateNodes_rec();
 		
 		System.out.println(linkedList);
 	}
