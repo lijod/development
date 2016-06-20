@@ -780,6 +780,44 @@ public class LinkedList <T extends Comparable<T>> {
 		 return prev;
 	}
 	
+	public void reverseKAlt(int k) {
+		this.head = reverseKAltHelper(this.head, k);
+	}
+	
+	private Node reverseKAltHelper(Node node, int k) {
+		
+		if(node == null || node.next == null) {
+			return node;
+		}
+		
+		Node curr = node;
+		Node prev = null;
+		Node next = null;
+		int counter = 0;
+		while(counter++ < k && curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		
+		if(node != null) {
+			node.next = curr;
+		}
+		
+		counter = 0;
+		
+		while(counter++ < k - 1 && curr != null) {
+			curr = curr.next;
+		}
+		
+		// Link reversed k nodes to the next node.
+		if(curr != null)
+			curr.next = reverseKHelper(curr.next, k);
+		 
+		 return prev;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

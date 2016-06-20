@@ -5,13 +5,16 @@ public class Main {
 	public static void main(String[] args) {
 		LinkedList<String> linkedList = new LinkedList<>(String.class);
 		
-		linkedList.add("D");
 		linkedList.add("A");
-		linkedList.add("C");
 		linkedList.add("B");
-		linkedList.add("G");
-		linkedList.add("F");
+		linkedList.add("C");
+		linkedList.add("D");
 		linkedList.add("E");
+		linkedList.add("F");
+		linkedList.add("G");
+		linkedList.add("H");
+		linkedList.add("I");
+		linkedList.add("J");
 //		
 		
 		System.out.println(linkedList);
@@ -97,7 +100,7 @@ public class Main {
 		
 //		linkedList.mergeSort();	
 		
-		linkedList.reverseK(3);
+		linkedList.reverseKAlt(3);
 		System.out.println(linkedList);
 	}
 
