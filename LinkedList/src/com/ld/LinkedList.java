@@ -683,6 +683,67 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 
+	public void splitListAlternately() {
+		Node head = this.head;
+		
+		splitListAlternatelyHelper(head);
+	}
+	
+	private void splitListAlternatelyHelper(Node head) {
+		
+		Node head1 = head;
+		Node head2 = head.next;
+		
+		LinkedList<T> ll1 = new LinkedList<T>();
+		LinkedList<T> ll2 = new LinkedList<T>();
+		
+		while(head1 != null || head2 != null) {
+			
+			if(head1 != null) {
+				ll1.add(head1.data);
+				head1 = head1.next != null ? head1.next.next : null;
+			}
+			
+			if(head2 != null) {
+				ll2.add(head2.data);
+				head2 = head2.next != null ? head2.next.next : null;
+			}
+			
+		}
+		
+		System.out.println(ll1);
+		System.out.println(ll2);
+		
+	}
+	
+	public void mergeSort() {
+		Node head = this.head;
+		this.head = mergeSortHelper(head);
+	}
+	
+	private Node mergeSortHelper(Node node) {
+		if(node == null || node.next == null) {
+			return null;
+		}
+		
+		Node slowPointer = node;
+		Node fastPointer = node;
+		Node prevOfSlow = null;
+		
+		while(fastPointer != null && fastPointer.next != null) {
+			prevOfSlow = slowPointer;
+			slowPointer = slowPointer.next;
+			fastPointer = fastPointer.next.next;
+		}
+		
+		prevOfSlow.next = null;
+		
+		mergeSortHelper(node);
+		mergeSortHelper(slowPointer);
+		
+		return merge(node, slowPointer);	
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
