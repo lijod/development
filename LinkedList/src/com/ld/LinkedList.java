@@ -818,6 +818,26 @@ public class LinkedList <T extends Comparable<T>> {
 		 return prev;
 	}
 	
+	public void deleteNodeWithGreaterNodeOnRight() {
+		this.head = deleteNodeWithGreaterNodeOnRightHelper(this.head);
+	}
+	
+	private Node deleteNodeWithGreaterNodeOnRightHelper(Node node) {
+		
+		if(node == null || node.next == null) {
+			return node;
+		}
+		
+		node.next = deleteNodeWithGreaterNodeOnRightHelper(node.next);
+		
+		if(node.data.compareTo(node.next.data) < 0) {
+			return node.next;
+		} else {
+			return node;
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

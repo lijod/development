@@ -3,18 +3,32 @@ package com.ld;
 public class Main {
 
 	public static void main(String[] args) {
-		LinkedList<String> linkedList = new LinkedList<>(String.class);
+//		LinkedList<String> linkedList = new LinkedList<>(String.class);
+//		
+//		linkedList.add("A");
+//		linkedList.add("B");
+//		linkedList.add("C");
+//		linkedList.add("D");
+//		linkedList.add("E");
+//		linkedList.add("F");
+//		linkedList.add("G");
+//		linkedList.add("H");
+//		linkedList.add("I");
+//		linkedList.add("J");
 		
-		linkedList.add("A");
-		linkedList.add("B");
-		linkedList.add("C");
-		linkedList.add("D");
-		linkedList.add("E");
-		linkedList.add("F");
-		linkedList.add("G");
-		linkedList.add("H");
-		linkedList.add("I");
-		linkedList.add("J");
+		LinkedList<Integer> linkedList = new LinkedList<>(Integer.class);
+		linkedList.add(3);
+		linkedList.add(2);
+		linkedList.add(4);
+		linkedList.add(5);
+		linkedList.add(1);
+		linkedList.add(7);
+//		linkedList.add(3);
+//		linkedList.add(5);
+//		linkedList.add(3);
+//		linkedList.add(8);
+//		linkedList.add("I");
+//		linkedList.add("J");
 //		
 		
 		System.out.println(linkedList);
@@ -100,7 +114,9 @@ public class Main {
 		
 //		linkedList.mergeSort();	
 		
-		linkedList.reverseKAlt(3);
+//		linkedList.reverseKAlt(3);
+		
+		linkedList.deleteNodeWithGreaterNodeOnRight();
 		System.out.println(linkedList);
 	}
 
