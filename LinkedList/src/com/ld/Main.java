@@ -5,12 +5,13 @@ public class Main {
 	public static void main(String[] args) {
 		LinkedList<String> linkedList = new LinkedList<>(String.class);
 		
-		linkedList.add("A");
-		linkedList.add("B");
-		linkedList.add("C");
 		linkedList.add("D");
-		linkedList.add("E");
+		linkedList.add("A");
+		linkedList.add("C");
+		linkedList.add("B");
+		linkedList.add("G");
 		linkedList.add("F");
+		linkedList.add("E");
 //		
 		
 		System.out.println(linkedList);
@@ -89,6 +90,15 @@ public class Main {
 //		linkedList.deleteAlternateNodes_itr();
 
 //		linkedList.deleteAlternateNodes_rec();
+<<<<<<< HEAD
+=======
+		
+//		System.out.println(linkedList);
+		
+//		linkedList.splitListAlternately();
+		
+		linkedList.mergeSort();
+>>>>>>> branch 'master' of https://github.com/lijod/development.git
 		
 		System.out.println(linkedList);
 	}
