@@ -90,16 +90,12 @@ public class Main {
 //		linkedList.deleteAlternateNodes_itr();
 
 //		linkedList.deleteAlternateNodes_rec();
-<<<<<<< HEAD
-=======
 		
 //		System.out.println(linkedList);
 		
 //		linkedList.splitListAlternately();
 		
-		linkedList.mergeSort();
->>>>>>> branch 'master' of https://github.com/lijod/development.git
-		
+		linkedList.mergeSort();		
 		System.out.println(linkedList);
 	}
 
