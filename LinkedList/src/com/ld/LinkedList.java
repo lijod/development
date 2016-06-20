@@ -220,6 +220,23 @@ public class LinkedList <T extends Comparable<T>> {
 		return slowPointer != null ? slowPointer.data : null;
 	}
 	
+	private Node findMiddleNode(Node node) {
+		
+		if(node == null) {
+			return null;
+		}
+		
+		Node slowPointer = node;
+		Node fastPointer = node;
+		
+		while(fastPointer != null && fastPointer.next != null && fastPointer.next.next != null) {
+			slowPointer = slowPointer.next;
+			fastPointer = fastPointer.next.next;
+		}
+		
+		return slowPointer;
+	}
+	
 	public T findNthElementFromEnd(int n) {
 		Node slowPointer = this.head;
 		Node fastPointer = this.head;
@@ -722,25 +739,17 @@ public class LinkedList <T extends Comparable<T>> {
 	
 	private Node mergeSortHelper(Node node) {
 		if(node == null || node.next == null) {
-			return null;
+			return node;
 		}
 		
-		Node slowPointer = node;
-		Node fastPointer = node;
-		Node prevOfSlow = null;
+		Node middleNode = findMiddleNode(node);
+		Node secondHalf = middleNode.next;
+		middleNode.next = null;
 		
-		while(fastPointer != null && fastPointer.next != null) {
-			prevOfSlow = slowPointer;
-			slowPointer = slowPointer.next;
-			fastPointer = fastPointer.next.next;
-		}
+		Node left = mergeSortHelper(node);
+		Node right = mergeSortHelper(secondHalf);
 		
-		prevOfSlow.next = null;
-		
-		mergeSortHelper(node);
-		mergeSortHelper(slowPointer);
-		
-		return merge(node, slowPointer);	
+		return merge(left, right);	
 	}
 	
 	@Override
