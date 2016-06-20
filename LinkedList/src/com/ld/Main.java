@@ -95,7 +95,9 @@ public class Main {
 		
 //		linkedList.splitListAlternately();
 		
-		linkedList.mergeSort();		
+//		linkedList.mergeSort();	
+		
+		linkedList.reverseK(3);
 		System.out.println(linkedList);
 	}
 

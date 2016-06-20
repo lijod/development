@@ -752,6 +752,34 @@ public class LinkedList <T extends Comparable<T>> {
 		return merge(left, right);	
 	}
 	
+	public void reverseK(int k) {
+		this.head = reverseKHelper(this.head, k);
+	}
+	
+	private Node reverseKHelper(Node node, int k) {
+		
+		if(node == null || node.next == null) {
+			return node;
+		}
+		
+		Node curr = node;
+		Node prev = null;
+		Node next = null;
+		int counter = 0;
+		while(counter++ < k && curr != null) {
+			next = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = next;
+		}
+		
+		// Link reversed k nodes to the next node.
+		if(next != null)
+			node.next = reverseKHelper(next, k);
+		 
+		 return prev;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
