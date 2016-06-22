@@ -27,7 +27,7 @@ public class Main {
 		linkedList.add(4);
 		linkedList.add(5);
 		linkedList.add(6);
-//		linkedList.add(3);
+		linkedList.add(7);
 //		linkedList.add(5);
 //		linkedList.add(3);
 //		linkedList.add(8);
@@ -153,7 +153,7 @@ public class Main {
 		
 //		System.out.println(linkedList.addlinkedList(linkedList2));
 		
-		linkedList.rotate(1);
+		linkedList.rotate(3);
 		
 		System.out.println(linkedList);
 		
