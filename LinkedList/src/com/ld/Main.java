@@ -153,7 +153,7 @@ public class Main {
 		
 //		System.out.println(linkedList.addlinkedList(linkedList2));
 		
-		linkedList.rotate(3);
+		linkedList.rotateClockwise(7);
 		
 		System.out.println(linkedList);
 		

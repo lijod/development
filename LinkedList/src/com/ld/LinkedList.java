@@ -957,7 +957,7 @@ public class LinkedList <T extends Comparable<T>> {
 		return result;
 	}
 	
-	public Node rotate(int k) {
+	public Node rotateAntiClockwise(int k) {
 		
 		Node curr = this.head;
 		
@@ -987,6 +987,45 @@ public class LinkedList <T extends Comparable<T>> {
 		this.head = next;
 		
 		return this.head;
+	}
+	
+	public void rotateClockwise(int k) {
+		
+		Node curr = this.head;
+		
+		int count = 0;
+		while(curr != null) {
+			curr = curr.next;
+			count++;
+		}
+		
+		curr = this.head;
+		
+		k = k % count;
+		
+		if(k == 0 || curr == null) {
+			return;
+		}
+		
+		
+		Node slow = this.head;
+		Node fast = this.head;
+		Node prevOfSlow = null;
+		
+		while(fast != null && --k > 0) {
+			fast = fast.next;
+		}
+		
+		while(slow != null && fast != null && fast.next != null) {
+			prevOfSlow = slow;
+			slow = slow.next;
+			fast = fast.next;
+		}
+		
+		prevOfSlow.next = null;
+		fast.next = curr;
+		this.head = slow;
+		
 	}
 	
 	@Override
