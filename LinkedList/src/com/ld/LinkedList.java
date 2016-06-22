@@ -838,6 +838,64 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	public void moveOddNodesToEnd() {
+		this.head = moveOddNodesToEndHelper(this.head);
+	}
+	
+	private Node moveOddNodesToEndHelper(Node head) {
+		Node curr = head;
+		Node prev = null;
+		Node currHead = this.head;
+		Node end = null;
+		Node newEnd = null;
+		
+		// Get the last node;
+		while(curr != null & curr.next != null) {
+			curr = curr.next;
+		}
+		
+		end = curr;
+		newEnd = end;
+		
+		curr = currHead;
+		
+		//Move all odd nodes before the 1st even node to the end.
+		while(curr != null && curr != end && Integer.parseInt(curr.data.toString()) % 2 != 0) {
+			newEnd.next = curr;	
+			curr = curr.next;
+			newEnd.next.next = null;
+			newEnd = newEnd.next;
+		}
+		
+		if(curr != null && Integer.parseInt(curr.data.toString()) % 2 == 0) {
+			currHead = curr;
+			while(curr != end) {
+				
+				if(Integer.parseInt(curr.data.toString()) % 2 == 0) {
+					prev = curr;
+					curr = curr.next;
+				} else {
+					prev.next = curr.next;
+					newEnd.next = curr;
+					newEnd = curr;
+					curr.next = null;
+					curr = prev.next;
+				}
+				 
+			}
+		} else {
+			prev = curr;
+		}
+		
+		if(newEnd != end && Integer.parseInt(curr.data.toString()) % 2 != 0) {
+			prev.next = end.next;
+			newEnd.next = end;
+			end.next = null;
+		}
+		
+		return currHead;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

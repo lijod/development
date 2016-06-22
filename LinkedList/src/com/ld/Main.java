@@ -22,7 +22,7 @@ public class Main {
 		linkedList.add(4);
 		linkedList.add(5);
 		linkedList.add(1);
-		linkedList.add(7);
+		linkedList.add(6);
 //		linkedList.add(3);
 //		linkedList.add(5);
 //		linkedList.add(3);
@@ -116,7 +116,10 @@ public class Main {
 		
 //		linkedList.reverseKAlt(3);
 		
-		linkedList.deleteNodeWithGreaterNodeOnRight();
+//		linkedList.deleteNodeWithGreaterNodeOnRight();
+		
+		linkedList.moveOddNodesToEnd();
+		
 		System.out.println(linkedList);
 	}
 
