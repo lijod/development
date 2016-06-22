@@ -957,6 +957,38 @@ public class LinkedList <T extends Comparable<T>> {
 		return result;
 	}
 	
+	public Node rotate(int k) {
+		
+		Node curr = this.head;
+		
+		if(k == 0) {
+			return curr;
+		}
+		
+		Node kthNode = null;
+		
+		while(curr != null && k-- > 1) {
+			curr = curr.next;
+		}
+		
+		if(curr == null) {
+			return curr;
+		}
+		
+		kthNode = curr;
+		
+		while(curr != null && curr.next != null) {
+			curr = curr.next;
+		}
+		
+		Node next = kthNode.next;
+		kthNode.next = null;
+		curr.next = this.head;
+		this.head = next;
+		
+		return this.head;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

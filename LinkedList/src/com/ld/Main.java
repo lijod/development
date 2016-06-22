@@ -21,12 +21,12 @@ public class Main {
 //		linkedList.add("J");
 		
 		LinkedList<Integer> linkedList = new LinkedList<>(Integer.class);
-		linkedList.add(7);
-		linkedList.add(5);
-		linkedList.add(9);
+		linkedList.add(1);
+		linkedList.add(2);
+		linkedList.add(3);
 		linkedList.add(4);
+		linkedList.add(5);
 		linkedList.add(6);
-//		linkedList.add(6);
 //		linkedList.add(3);
 //		linkedList.add(5);
 //		linkedList.add(3);
@@ -147,11 +147,15 @@ public class Main {
 //		
 //		printList(node1);
 		
-		LinkedList<Integer> linkedList2 = new LinkedList<>(Integer.class);
-		linkedList2.add(8);
-		linkedList2.add(4);
+//		LinkedList<Integer> linkedList2 = new LinkedList<>(Integer.class);
+//		linkedList2.add(8);
+//		linkedList2.add(4);
 		
-		System.out.println(linkedList.addlinkedList(linkedList2));
+//		System.out.println(linkedList.addlinkedList(linkedList2));
+		
+		linkedList.rotate(1);
+		
+		System.out.println(linkedList);
 		
 	}
 	
