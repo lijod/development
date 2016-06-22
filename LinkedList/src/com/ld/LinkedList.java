@@ -925,6 +925,38 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	public LinkedList<Integer> addlinkedList(LinkedList<T> otherLinkedList) {
+		
+		LinkedList<Integer> result = new LinkedList<Integer>();
+		
+		Node thisNode = this.head;
+		Node otherNode = otherLinkedList.head;
+		
+		int carry = 0;
+		int sum = 0;
+		
+		while(thisNode != null || otherNode != null) {
+			Integer a = thisNode != null ? Integer.parseInt(thisNode.data.toString()) : 0;
+			Integer b = otherNode != null ? Integer.parseInt(otherNode.data.toString()) : 0;
+			
+			sum = carry + a + b;
+			
+			result.add(sum % 10);
+			
+			carry = sum / 10;
+			
+			
+			thisNode = thisNode != null ? thisNode.next : null;
+			otherNode = otherNode != null ? otherNode.next : null;
+		}
+		
+		if(carry > 0) {
+			result.add(carry);
+		}
+		
+		return result;
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
