@@ -896,6 +896,35 @@ public class LinkedList <T extends Comparable<T>> {
 		return currHead;
 	}
 	
+	public void detectAndRemoveLoop() {
+		detectAndRemoveLoopHelper(this.head);
+	}
+	
+	public void detectAndRemoveLoopHelper(Node node){
+		
+		Node fast = node.next;
+		Node slow = node;
+		
+		while(slow != null && fast != null && fast.next != null) {
+			if(slow == fast) {
+				break;
+			}
+			
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		
+		if(slow == fast) {
+			slow = node;
+			while(slow != fast.next) {
+				slow = slow.next;
+				fast = fast.next;
+			}
+			fast.next = null;
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
