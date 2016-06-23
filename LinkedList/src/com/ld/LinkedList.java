@@ -1052,6 +1052,27 @@ public class LinkedList <T extends Comparable<T>> {
  		}
 	}
 	
+	public void insertAtAlternatePos(LinkedList<T> oLinkedlList) {
+		Node thisNode = this.head;
+		Node otherNode = oLinkedlList.head;
+		
+		while(thisNode != null && otherNode != null) {
+			Node thisNext = thisNode.next;
+			Node otherNext = otherNode.next;
+			
+			thisNode.next = otherNode;
+			// If this is last node for thisNode, append all from other node. 
+			if(thisNext != null)
+				otherNode.next = thisNext;
+			thisNode = thisNext;
+			otherNode = otherNext;
+		}
+		
+//		if(otherNode != null) {
+//			thisNode
+//		}
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

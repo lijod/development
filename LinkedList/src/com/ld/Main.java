@@ -24,10 +24,10 @@ public class Main {
 		linkedList.add(1);
 		linkedList.add(2);
 		linkedList.add(0);
-		linkedList.add(0);
-		linkedList.add(2);
-		linkedList.add(1);
-		linkedList.add(2);
+//		linkedList.add(0);
+//		linkedList.add(2);
+//		linkedList.add(1);
+//		linkedList.add(2);
 //		linkedList.add(5);
 //		linkedList.add(3);
 //		linkedList.add(8);
@@ -195,7 +195,15 @@ public class Main {
 // 
 //        L.printList();
 		
-		linkedList.sortRepeated();
+//		linkedList.sortRepeated();
+		
+		LinkedList<Integer> linkedList2 = new LinkedList<>();
+		linkedList2.add(10);
+		linkedList2.add(20);
+		linkedList2.add(30);
+		linkedList2.add(40);
+		
+		linkedList.insertAtAlternatePos(linkedList2);
 		
 		System.out.println(linkedList);
 		
