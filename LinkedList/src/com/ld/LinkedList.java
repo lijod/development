@@ -1028,6 +1028,30 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	public void sortRepeated() {
+		int[] repetation = new int[3];
+		
+		Node curr = this.head;
+		
+		while(curr != null) {
+			int index = Integer.parseInt(curr.data.toString());
+			repetation[index]++;
+			curr = curr.next;
+		}
+		
+		curr = this.head;
+		Integer i = 0;
+		while(curr != null) {
+			if(repetation[i] == 0) {
+				i++;
+			} else {
+				curr.data = (T) i;
+				repetation[i]--;
+				curr = curr.next;
+			}
+ 		}
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {

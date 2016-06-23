@@ -23,11 +23,11 @@ public class Main {
 		LinkedList<Integer> linkedList = new LinkedList<>(Integer.class);
 		linkedList.add(1);
 		linkedList.add(2);
-		linkedList.add(3);
-		linkedList.add(4);
-		linkedList.add(5);
-		linkedList.add(6);
-		linkedList.add(7);
+		linkedList.add(0);
+		linkedList.add(0);
+		linkedList.add(2);
+		linkedList.add(1);
+		linkedList.add(2);
 //		linkedList.add(5);
 //		linkedList.add(3);
 //		linkedList.add(8);
@@ -158,42 +158,46 @@ public class Main {
 //		System.out.println(linkedList);
 		
 		
-		LinkedList2D<Integer> L = new LinkedList2D<>();
-		 
-        /* Let us create the following linked list
-            5 -> 10 -> 19 -> 28
-            |    |     |     |
-            V    V     V     V
-            7    20    22    35
-            |          |     |
-            V          V     V
-            8          50    40
-            |                |
-            V                V
-            30               45
-        */
- 
-        L.head = L.push(L.head, 30);
-        L.head = L.push(L.head, 8);
-        L.head = L.push(L.head, 7);
-        L.head = L.push(L.head, 5);
- 
-        L.head.right = L.push(L.head.right, 20);
-        L.head.right = L.push(L.head.right, 10);
- 
-        L.head.right.right = L.push(L.head.right.right, 50);
-        L.head.right.right = L.push(L.head.right.right, 22);
-        L.head.right.right = L.push(L.head.right.right, 19);
- 
-        L.head.right.right.right = L.push(L.head.right.right.right, 45);
-        L.head.right.right.right = L.push(L.head.right.right.right, 40);
-        L.head.right.right.right = L.push(L.head.right.right.right, 35);
-        L.head.right.right.right = L.push(L.head.right.right.right, 20);
- 
-        // flatten the list
-        L.head = L.flatten(L.head);
- 
-        L.printList();
+//		LinkedList2D<Integer> L = new LinkedList2D<>();
+//		 
+//        /* Let us create the following linked list
+//            5 -> 10 -> 19 -> 28
+//            |    |     |     |
+//            V    V     V     V
+//            7    20    22    35
+//            |          |     |
+//            V          V     V
+//            8          50    40
+//            |                |
+//            V                V
+//            30               45
+//        */
+// 
+//        L.head = L.push(L.head, 30);
+//        L.head = L.push(L.head, 8);
+//        L.head = L.push(L.head, 7);
+//        L.head = L.push(L.head, 5);
+// 
+//        L.head.right = L.push(L.head.right, 20);
+//        L.head.right = L.push(L.head.right, 10);
+// 
+//        L.head.right.right = L.push(L.head.right.right, 50);
+//        L.head.right.right = L.push(L.head.right.right, 22);
+//        L.head.right.right = L.push(L.head.right.right, 19);
+// 
+//        L.head.right.right.right = L.push(L.head.right.right.right, 45);
+//        L.head.right.right.right = L.push(L.head.right.right.right, 40);
+//        L.head.right.right.right = L.push(L.head.right.right.right, 35);
+//        L.head.right.right.right = L.push(L.head.right.right.right, 20);
+// 
+//        // flatten the list
+//        L.head = L.flatten(L.head);
+// 
+//        L.printList();
+		
+		linkedList.sortRepeated();
+		
+		System.out.println(linkedList);
 		
 	}
 	
