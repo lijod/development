@@ -1075,12 +1075,14 @@ public class LinkedList <T extends Comparable<T>> {
 	
 	public void pairwiseSwapReference() {
 		
-		if(this.head == null) {
+		if(this.head == null || this.head.next == null) {
 			return;
 		}
 		
 		Node curr = this.head.next;
 		Node prev = this.head;
+		
+		this.head = curr;
 		
 		while(true) {
 			Node next = curr.next;

@@ -205,7 +205,7 @@ public class Main {
 //		
 //		linkedList.insertAtAlternatePos(linkedList2);
 		
-		linkedList.segregateOddAndEvenPosNodes();
+		linkedList.pairwiseSwapReference();
 		
 		System.out.println(linkedList);
 		
