@@ -24,9 +24,9 @@ public class Main {
 		linkedList.add(1);
 		linkedList.add(2);
 		linkedList.add(0);
-//		linkedList.add(0);
-//		linkedList.add(2);
-//		linkedList.add(1);
+		linkedList.add(5);
+		linkedList.add(4);
+		linkedList.add(6);
 //		linkedList.add(2);
 //		linkedList.add(5);
 //		linkedList.add(3);
@@ -197,13 +197,15 @@ public class Main {
 		
 //		linkedList.sortRepeated();
 		
-		LinkedList<Integer> linkedList2 = new LinkedList<>();
-		linkedList2.add(10);
-		linkedList2.add(20);
-		linkedList2.add(30);
-		linkedList2.add(40);
+//		LinkedList<Integer> linkedList2 = new LinkedList<>();
+//		linkedList2.add(10);
+//		linkedList2.add(20);
+//		linkedList2.add(30);
+//		linkedList2.add(40);
+//		
+//		linkedList.insertAtAlternatePos(linkedList2);
 		
-		linkedList.insertAtAlternatePos(linkedList2);
+		linkedList.segregateOddAndEvenPosNodes();
 		
 		System.out.println(linkedList);
 		

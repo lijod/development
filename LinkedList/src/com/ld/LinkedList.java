@@ -1073,6 +1073,65 @@ public class LinkedList <T extends Comparable<T>> {
 //		}
 	}
 	
+	public void pairwiseSwapReference() {
+		
+		if(this.head == null) {
+			return;
+		}
+		
+		Node curr = this.head.next;
+		Node prev = this.head;
+		
+		while(true) {
+			Node next = curr.next;
+			curr.next = prev;
+			
+			if(next == null  || next.next == null) {
+				prev.next = next;
+				break;
+			}
+			
+			prev.next = next.next;
+			prev = next;
+			curr = prev.next;
+			
+		}
+	}
+	
+	public void segregateOddAndEvenPosNodes() {
+		
+		if(this.head == null || this.head.next == null) {
+			return;
+		}
+		
+		Node odd = this.head;
+		Node even = this.head.next;
+		
+		Node evenFirst = even;
+		
+		while(true) {
+			// Break and connect even to odd when end is reached 
+			if(odd == null || even == null || even.next == null) {
+				odd.next = evenFirst;
+				break;
+			}
+			
+			odd.next = even.next;
+			odd = odd.next;
+			
+			if(odd.next == null) {
+				even.next = null;
+				odd.next = evenFirst;
+				break;
+			}
+			
+			even.next = odd.next;
+			even = even.next;
+			
+		}
+		
+	}
+	
 	@Override
 	public String toString() {
 		if(this.head == null) {
