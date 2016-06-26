@@ -1,7 +1,5 @@
 package com.ld;
 
-import javax.print.event.PrintJobAttributeListener;
-
 import com.ld.LinkedList.Node;
 
 public class Main {
@@ -20,13 +18,13 @@ public class Main {
 //		linkedList.add("I");
 //		linkedList.add("J");
 		
-		LinkedList<Integer> linkedList = new LinkedList<>(Integer.class);
-		linkedList.add(1);
-		linkedList.add(2);
-		linkedList.add(0);
-		linkedList.add(5);
-		linkedList.add(4);
-		linkedList.add(6);
+//		LinkedList<Integer> linkedList = new LinkedList<>(Integer.class);
+//		linkedList.add(1);
+//		linkedList.add(2);
+//		linkedList.add(0);
+//		linkedList.add(5);
+//		linkedList.add(4);
+//		linkedList.add(6);
 //		linkedList.add(2);
 //		linkedList.add(5);
 //		linkedList.add(3);
@@ -35,7 +33,7 @@ public class Main {
 //		linkedList.add("J");
 //		
 		
-		System.out.println(linkedList);
+//		System.out.println(linkedList);
 		
 //		System.out.println(linkedList.hasElement_itr("B"));
 //		System.out.println(linkedList.hasElement_rec("C"));
@@ -205,9 +203,33 @@ public class Main {
 //		
 //		linkedList.insertAtAlternatePos(linkedList2);
 		
-		linkedList.pairwiseSwapReference();
+//		linkedList.pairwiseSwapReference();
 		
-		System.out.println(linkedList);
+//		System.out.println(linkedList);
+		
+		DoublyLinkedList<String> dll = new DoublyLinkedList<>();
+		
+		DoublyLinkedList<String>.DNode head = new DoublyLinkedList<String>().new DNode();
+		DoublyLinkedList<String>.DNode node1 = new DoublyLinkedList<String>().new DNode();
+		DoublyLinkedList<String>.DNode node2 = new DoublyLinkedList<String>().new DNode();
+		
+		head.prev = null;
+		head.next = node1;
+		head.data = "A";
+		node1.prev = head;
+		node1.next = node2;
+		node1.data = "B";
+		node2.prev = node1;
+		node2.next = null;
+		node2.data = "C";
+		
+		dll.head = head;
+		
+		System.out.println(dll);
+		
+		dll.reverse(head);
+		
+		System.out.println(dll);
 		
 	}
 	
