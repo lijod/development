@@ -88,6 +88,50 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 		return node;
 	}
+	
+	public T getLCA(T val1, T val2) {
+		Node node = getLCA(this.root, val1, val2);
+		return node != null  ? node.data : null;
+	}
+
+	private Node getLCA(Node node, T val1, T val2) {
+		
+		if(node == null) {
+			return null;
+		}
+		
+		if(!isPresent(val1) || !isPresent(val2)) {
+			return null;
+		}
+		
+		if(node.data.compareTo(val1) > 0 && node.data.compareTo(val2) > 0) {
+			return getLCA(node.left, val1, val2);
+		} else if(node.data.compareTo(val1) < 0 && node.data.compareTo(val2) < 0) {
+			return getLCA(node.right, val1, val2);
+		}
+		
+		return node;
+	}
+	
+	public boolean isPresent(T data) {
+		return isPresent(this.root, data);
+	}
+	
+
+	private boolean isPresent(Node node, T data) {
+		
+		if(node == null) {
+			return false;
+		}
+		
+		if(node.data.compareTo(data) > 0) {
+			return isPresent(node.left, data);
+		} else if(node.data.compareTo(data) < 0) {
+			return isPresent(node.right, data);
+		}
+		
+		return true;
+	}
 
 	@Override
 	public String toString() {

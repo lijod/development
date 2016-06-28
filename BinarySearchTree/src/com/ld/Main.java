@@ -14,9 +14,14 @@ public class Main {
 		
 		System.out.println(bst);
 		
-		bst.delete(30);
+//		bst.delete(30);
 		
-		System.out.println(bst);
+//		System.out.println(bst);
+		
+		System.out.println(bst.getLCA(40, 80));
+		
+		System.out.println("isPresent: " + bst.isPresent(50));
+		
 	}
 	
 }
