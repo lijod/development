@@ -194,7 +194,7 @@ public class BinaryTree<T> {
 		int lDiameter = getDiameter(node.left);
 		int rDiameter = getDiameter(node.right);
 		
-		return Math.max(lHeight + rHeight, Math.max(lDiameter, rDiameter));
+		return Math.max(lHeight + rHeight + 1, Math.max(lDiameter, rDiameter));
 		
 	}
 	
