@@ -1,5 +1,7 @@
 package com.ld;
 
+import java.util.Stack;
+
 public class BinarySearchTree<T extends Comparable<T>> {
 
 	class Node {
@@ -133,6 +135,53 @@ public class BinarySearchTree<T extends Comparable<T>> {
 		return true;
 	}
 
+	public T getKSmallest(int k) {
+		return getKSmallest(this.root, k);
+	}
+	
+	private T getKSmallest(Node node, int k) {
+		
+		Stack<Node> stack = new Stack<>();
+		
+		while(!stack.isEmpty() || node != null) {
+			if(node != null) {
+				stack.push(node);
+				node = node.left;
+			} else {
+				Node temp = stack.pop();
+				k--;
+				if(k == 0) {
+					return temp.data;
+				}
+				node = temp.right;
+			}
+		}
+		
+		return null;
+	}
+	
+//	private T getKSmallest_logn(Node node, int k) {
+//		
+//		int count = k;
+//		
+//		while(node != null) {
+//			int sizeOfLeftSubtree = size(node.left);
+//			
+//			if()
+//			
+//		}
+//		
+//		return null;
+//	}
+	
+	public int size(Node node) {
+		if(node == null) {
+			return 0;
+		}
+		
+		return size(node.left) + 1 + size(node.right);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

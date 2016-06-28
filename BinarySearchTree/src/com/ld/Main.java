@@ -22,6 +22,8 @@ public class Main {
 		
 		System.out.println("isPresent: " + bst.isPresent(50));
 		
+		System.out.println("k smallest value: " + bst.getKSmallest(3));
+		
 	}
 	
 }
