@@ -163,6 +163,26 @@ public class BinaryTree<T> {
 		return maxWidth;
 	}
 
+	public boolean isBST(Node root) {
+		return isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+	}
+	
+	private boolean isBSTUtil(Node root, Integer minValue, Integer maxValue) {
+		
+		if(root == null) {
+			return true;
+		}
+		
+		if(((Integer)Integer.parseInt(root.data.toString())).compareTo(minValue) < 0 ||
+				((Integer)Integer.parseInt(root.data.toString())).compareTo(maxValue) > 0) {
+			return false;
+		}
+		
+		return isBSTUtil(root.left, minValue, Integer.parseInt(root.data.toString())) && 
+				isBSTUtil(root.right, Integer.parseInt(root.data.toString()), maxValue);
+		
+	}
+
 	public int getDiameter(Node node) {
 		if(node == null) {
 			return 0;
