@@ -14,14 +14,14 @@ public class Main {
 		
 		PersonDao personDAO = context.getBean(PersonDao.class);
 		
-		Person person = new Person();
-		person.setId(1);
-		person.setName("Lijo"); 
-//		person.setCountry("India");
-		
-		personDAO.save(person);
-		
-		System.out.println("Person::"+person);
+//		Person person = new Person();
+//		person.setId(3);
+//		person.setName("Parth"); 
+////		person.setCountry("India");
+//		
+//		personDAO.save(person);
+//		
+//		System.out.println("Person::"+person);
 		
 		List<Person> list = personDAO.list();
 		
