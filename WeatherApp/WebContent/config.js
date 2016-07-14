@@ -3,16 +3,16 @@
         .module("WeatherApp")
         .config(configuration);
 
-    function configuration($routeProvider, $urlRouterProvider, $urlMatcherFactoryProvider) {
+    function configuration($routeProvider) {
     	  $routeProvider
-	          .when("/home", {
+	          .when("/dashboard", {
 	              templateUrl: "view/dashboard.html",
 	              controller: "WeatherController",
 	              controllerAs: "model"
 	          })
 	          .otherwise({
-                redirectTo: "/home"
+                redirectTo: "/dashboard"
 	          });
     }
     
-});
+})();
