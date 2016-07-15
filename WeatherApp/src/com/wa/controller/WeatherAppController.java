@@ -10,12 +10,13 @@ import com.wa.dao.WeatherPrefDao;
 import com.wa.model.WeatherPreference;
 
 @RestController
+@RequestMapping(value="/weather")
 public class WeatherAppController {
 
 	@Autowired
 	WeatherPrefDao weatherPrefDao;
 
-	@RequestMapping(name = "/addfavlocation.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "/addfavlocation.htm", method = RequestMethod.GET)
 	public WeatherPreference getIndexPage(@RequestParam(value = "zipcode") String zipcode,
 			@RequestParam(value = "name") String name, @RequestParam(value = "islocal") boolean isLocal) {
 		System.out.println(zipcode + " " + name + " " + isLocal);

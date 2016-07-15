@@ -2,6 +2,7 @@ package com.wa.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
 import com.wa.model.WeatherPrefPK;
@@ -20,9 +21,10 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
     public WeatherPreference addPreference(long userId, String zipcode, boolean isLocal, String name) {
     	WeatherPreference pref = new WeatherPreference(new WeatherPrefPK(userId, zipcode), isLocal, name); 
     	
-    	Session session = this.sessionFactory.openSession();
+    	Session session = this.sessionFactory.getCurrentSession();
+    	Transaction tx = session.beginTransaction();
     	session.persist(pref);
-    	session.close();
+    	tx.commit();
     	
     	return pref;
     }

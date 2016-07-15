@@ -31,6 +31,7 @@ public class User {
 	@JoinColumn(name="user_id")
 	List<WeatherPreference> prefList;
 	
+	public User() {}
 
 	public User(long userId, String username, String email, String pasaword) {
 		super();

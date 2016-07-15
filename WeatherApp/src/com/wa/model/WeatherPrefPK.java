@@ -11,7 +11,7 @@ public class WeatherPrefPK implements Serializable {
 	@Column(name="user_id")
     protected long userId;
 	
-	@Column(name="zipcode")
+	@Column(name="zip_code")
     protected String zipcode;
 
     public WeatherPrefPK() {}

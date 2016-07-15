@@ -20,17 +20,21 @@ public class UserDaoImpl implements UserDao {
     
 	@Override
 	public User addUser(User user) {
-		Session session = this.sessionFactory.openSession();
+		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = session.beginTransaction();
 		session.persist(user);
 		tx.commit();
-		session.close();
 		return user;
 	}
 	
 	@Override
 	public User getUserById(long id) {
-		return null;
+		
+		Session session = this.sessionFactory.getCurrentSession();		
+		Transaction tx = session.beginTransaction();
+		User user = (User) session.get(User.class, id);
+		tx.commit();
+		return user;
 	}
 	
 	@Override

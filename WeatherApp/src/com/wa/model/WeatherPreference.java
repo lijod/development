@@ -20,6 +20,8 @@ public class WeatherPreference implements Serializable{
 	@Column(name="name")
 	String name;
 	
+	public WeatherPreference() {}
+	
 	public WeatherPreference(WeatherPrefPK weatherPrefPK, boolean isLocal, String name) {
 		this.weatherPrefPK = weatherPrefPK;
 		this.isLocal = isLocal;

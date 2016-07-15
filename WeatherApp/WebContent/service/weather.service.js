@@ -20,7 +20,7 @@
     	}
     	
     	function addToFav(zipcode, name, isLocal) {
-    		return $http.get("addfavlocation.htm?zipcode=" + zipcode + "&name="  + name + "&islocal=" + isLocal);
+    		return $http.get("weather/addfavlocation.htm?zipcode=" + zipcode + "&name="  + name + "&islocal=" + isLocal);
     	}
     	
     }
