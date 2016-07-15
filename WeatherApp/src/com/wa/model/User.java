@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="app_user")
 public class User {
@@ -25,6 +27,7 @@ public class User {
 	@Column(name="email")
 	String email;
 	@Column(name="password	")
+	@JsonIgnore
 	String pasaword;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
