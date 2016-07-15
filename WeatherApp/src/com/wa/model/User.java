@@ -1,9 +1,12 @@
 package com.wa.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -14,6 +17,7 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
+	@GeneratedValue
 	@Column(name="user_id")
 	long userId;
 	@Column(name="username")
@@ -25,8 +29,9 @@ public class User {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
-	WeatherPreference prefList;
+	List<WeatherPreference> prefList;
 	
+
 	public User(long userId, String username, String email, String pasaword) {
 		super();
 		this.userId = userId;
@@ -67,51 +72,17 @@ public class User {
 		this.pasaword = pasaword;
 	}
 
+	public List<WeatherPreference> getPrefList() {
+		return prefList;
+	}
+	
+	public void setPrefList(List<WeatherPreference> prefList) {
+		this.prefList = prefList;
+	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", email=" + email + ", pasaword=" + pasaword
-				+ "]";
+				+ ", pref=" + prefList + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((pasaword == null) ? 0 : pasaword.hashCode());
-		result = prime * result + (int) (userId ^ (userId >>> 32));
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (pasaword == null) {
-			if (other.pasaword != null)
-				return false;
-		} else if (!pasaword.equals(other.pasaword))
-			return false;
-		if (userId != other.userId)
-			return false;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
-	
-	
 }
