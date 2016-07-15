@@ -20,5 +20,29 @@ public class WeatherPrefPK implements Serializable {
         this.userId = userId;
         this.zipcode = zipcode;
     }
-    // equals, hashCode
+    
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+
+	public String getZipcode() {
+		return zipcode;
+	}
+	
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
+	}
+	
+	@Override
+	public String toString() {
+		return "WeatherPrefPK [userId=" + userId + ", zipcode=" + zipcode + "]";
+	}
+
+	
+
+    
 }

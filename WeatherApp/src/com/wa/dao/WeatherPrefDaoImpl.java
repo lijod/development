@@ -1,10 +1,7 @@
 package com.wa.dao;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.stereotype.Service;
 
 import com.wa.model.WeatherPrefPK;
@@ -24,9 +21,7 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
     	WeatherPreference pref = new WeatherPreference(new WeatherPrefPK(userId, zipcode), isLocal, name); 
     	
     	Session session = this.sessionFactory.openSession();
-    	Transaction tx = session.getTransaction();
     	session.persist(pref);
-    	tx.commit();
     	session.close();
     	
     	return pref;
@@ -40,7 +35,6 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
 	@Override
 	public void editPreference(WeatherPreference pref, String name) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	
