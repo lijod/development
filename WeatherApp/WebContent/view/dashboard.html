@@ -1,6 +1,28 @@
-<input type="text" ng-model="model.zipCode" />
-<a href="" ng-click="model.loadWeather()"> Update</a>
+<div class="container">
 
-<a href="" ng-click="model.addToFav('My location', false)"> Add to favorite!</a>
+	<div class=row>
+		<div class="col-sm-8">
+			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
+	             <a ng-click="" ng-if="!model.isFavorite" class="fav-icon fa fa-star-o"></a>
+	             <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a>
+			</h3>
+			
+			<div class="row">
+				<div class="col-xs-1"><img ng-src="{{model.icon}}"></div>
+				<div class="col-xs-8"><h4>Current: {{model.main.temp}}</h4> <br/> High: {{model.main.temp_max}} Low: {{model.main.temp_min}} </div>
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<ng-map center="[{{model.coordinates.lat}}, {{model.coordinates.lon}}]">
+				<!-- <marker position="[{{model.coordinates.lat}}, {{model.coordinates.lon}}]"></marker> -->
+			</ng-map>
+		</div>
+	</div>
+	<input type="text" ng-model="model.zipCode" />
+	<a href="" ng-click="model.loadWeather()"> Update</a>
+	
+	<a href="" ng-click="model.addToFav('My location', false)"> Add to favorite!</a>
+	
+	
 
-<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})</h3>
+</div>

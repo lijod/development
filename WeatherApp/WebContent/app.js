@@ -1,5 +1,5 @@
 "use strict";
 (function(){
     angular
-        .module("WeatherApp", ["ngRoute"]);
+        .module("WeatherApp", ["ngRoute", "ngMap"]);
 })();

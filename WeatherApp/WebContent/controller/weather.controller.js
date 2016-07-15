@@ -16,6 +16,7 @@
     		vm.wind = "";
     		vm.loadWeather = loadWeather;
     		vm.addToFav = addToFav;
+    		vm.isFavorite = false;
     		loadWeather();
     	}
     	
@@ -34,7 +35,7 @@
     				vm.main = response.data.main;
     				vm.locationName = response.data.name;
     				vm.coordinates = response.data.coord;
-    				vm.icon = response.data.weather.icon;
+    				vm.icon = "http://openweathermap.org/img/w/" + response.data.weather[0].icon + ".png";
     				vm.wind = response.data.wind;
     			},
     			function(error) {
