@@ -12,8 +12,7 @@ create table weather_preferences
     zip_code VARCHAR(10) not null,
     is_local boolean not null,
     name VARCHAR(10) not null,
-    FOREIGN KEY (user_id)
+    FOREIGN KEY (user_id) 
     REFERENCES app_user(user_id)
     On DELETE CASCADE
 );
-
