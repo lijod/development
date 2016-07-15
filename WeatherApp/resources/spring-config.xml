@@ -6,6 +6,8 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
+	
+	
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
@@ -31,6 +33,12 @@
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
+	</bean>
+
+	<tx:annotation-driven/>
+	<!-- Hibernate Transaction Manager -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+	    <property name="sessionFactory" ref="SessionFactory"/>
 	</bean>
 
 	<bean id="userDao" class="com.wa.dao.UserDaoImpl">
