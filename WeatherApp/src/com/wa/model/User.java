@@ -1,5 +1,6 @@
 package com.wa.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,22 +14,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name="app_user")
-public class User {
+public class User implements Serializable{
 
 	@Id
 	@GeneratedValue
 	@Column(name="user_id")
-	long userId;
+	Long userId;
 	@Column(name="username")
 	String username;
 	@Column(name="email")
 	String email;
-	@Column(name="password	")
-	@JsonIgnore
-	String pasaword;
+	@Column(name="password")
+	String password;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="user_id")
@@ -41,7 +42,7 @@ public class User {
 		this.userId = userId;
 		this.username = username;
 		this.email = email;
-		this.pasaword = pasaword;
+		this.password = pasaword;
 	}
 
 	public long getUserId() {
@@ -68,12 +69,12 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPasaword() {
-		return pasaword;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPasaword(String pasaword) {
-		this.pasaword = pasaword;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public List<WeatherPreference> getPrefList() {
@@ -86,7 +87,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", email=" + email + ", pasaword=" + pasaword
+		return "User [userId=" + userId + ", username=" + username + ", email=" + email + ", password=" + password
 				+ ", pref=" + prefList + "]";
 	}
 }

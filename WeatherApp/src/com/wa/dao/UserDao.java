@@ -11,5 +11,9 @@ public interface UserDao {
 	public User getUserById(long id);
 	
 	public List<User> getAllUsers();
+
+	public User createUser(User user);
+
+	public User getByUserName(String name);
 	
 }

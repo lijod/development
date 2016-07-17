@@ -1,10 +1,24 @@
 <div class="container">
-
+	<div class="text-center row">
+		<div class="col-xs-offset-4 col-xs-4">
+			<div class="row input-group">
+				<div class="col-xs-8">
+				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+					<input class="form-control" type="text" ng-model="model.zipCode" placeholder="Zipcode"/>
+				</div>
+				<div class="col-xs-4">
+					<a class="btn btn-warning btn-sm" ng-click="model.loadWeatherForZipcode(model.zipCode)"> Update</a>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class=row>
 		<div class="col-sm-8">
 			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
-	             <a ng-click="" ng-if="!model.isFavorite" class="fav-icon fa fa-star-o"></a>
-	             <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a>
+	             <a class="fav-icon fa fa-star-o" 
+	             	data-trigger="click"
+	             	data-placement="bottom" popover></a>
+	             <!-- <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a> -->
 			</h3>
 			
 			<div class="row">
@@ -18,11 +32,13 @@
 			</ng-map>
 		</div>
 	</div>
-	<input type="text" ng-model="model.zipCode" />
-	<a href="" ng-click="model.loadWeather()"> Update</a>
 	
-	<a href="" ng-click="model.addToFav('My location', false)"> Add to favorite!</a>
-	
-	
-
+	<div id="popover-title" class="hide">Add to preference</div>
+	<div id="popover-content" class="hide"> 
+		<form>
+			<input type='text' placeholder='Location name' ng-model='model.currLocation.name' /> <br/><br/>
+			<label for='local'>Default location?</label> <input name='local' type='checkbox' checked='model.currLocation.local' />
+			<a href='' ng-click='model.addToFav(model.pref)' class='btn btn-success btn-xs'>Add</a>
+		</form>
+	</div>
 </div>

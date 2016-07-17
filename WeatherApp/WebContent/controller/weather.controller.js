@@ -1,10 +1,9 @@
 (function () {
-
     angular
         .module("WeatherApp")
         .controller("WeatherController", WeatherController);
 
-    function WeatherController($scope, WeatherService) {
+    function WeatherController($scope, WeatherService, SessionService) {
     	var vm = this;
     	
     	function init() {
@@ -14,15 +13,16 @@
     		vm.coordinates = "";
     		vm.icon = "";
     		vm.wind = "";
-    		vm.loadWeather = loadWeather;
+    		vm.loadWeatherForZipcode = loadWeatherForZipcode;
     		vm.addToFav = addToFav;
     		vm.isFavorite = false;
+    		vm.prefList = [];
     		loadWeather();
     	}
     	
     	init();
     	
-    	function loadWeather() {
+    	function loadWeatherWithoutSession() {
     		console.log(vm.zipCode);
     		if(vm.zipCode === "") {
     			vm.zipCode = "02120";
@@ -54,6 +54,39 @@
     			});
     	}
     	
+    	function loadWeather() {
+    		if(SessionService.isLoggedIn()) {
+    			console.log("Session found");
+    			SessionService.currentUser()
+    					.then(function(response) {
+    						loadSavedPreferences(response.data.prefList);
+    					},
+    					function (error) {
+    						console.log("Error fetching session user");
+    					});
+    		} else {
+    			console.log("No session found");
+    			loadWeatherWithoutSession();
+    		}
+    	}
+    	
+    	function loadSavedPreferences(prefList) {
+    		vm.prefList = prefList;
+    		
+    		prefList.forEach(function(pref, index, arr) {
+    			if(pref.local) {
+    				loadWeatherForZipcode(pref.weatherPrefPK.zipcode);
+    				vm.currLocation = pref;
+    				console.log(pref);
+    				return;
+    			}
+    		});	
+    	}
+    	
+    	function loadWeatherForZipcode(zipcode) {
+    		vm.zipCode = zipcode;
+    		loadWeatherWithoutSession();
+    	}
     }
     
 })();
