@@ -4,7 +4,7 @@
         .module("WeatherApp")
         .controller("LoginController", LoginController);
     
-    function LoginController($scope, SessionService, $location) {
+    function LoginController($scope, $rootScope, SessionService, $location) {
     	
     	var vm = this;
     	

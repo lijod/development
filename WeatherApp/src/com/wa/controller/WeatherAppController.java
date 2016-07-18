@@ -32,7 +32,7 @@ public class WeatherAppController {
 		if(principal != null) {
 			String username = principal.getName();
 			User user = userDao.getByUserName(username);
-			WeatherPreference pref = weatherPrefDao.addPreference(user.getUserId(), zipcode, isLocal, name);
+			WeatherPreference pref = weatherPrefDao.addUpdatePreference(user.getUserId(), zipcode, isLocal, name);
 			System.out.println(pref);
 			return pref;
 		}

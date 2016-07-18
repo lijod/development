@@ -10,9 +10,10 @@
 	<div class=row>
 		<div class="col-sm-8">
 			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
-	             <a class="fav-icon {{model.hasPref ? 'fa fa-star' : 'fa fa-star-o'}}" 
+	             <a ng-if="username" class="fav-icon {{model.hasPref ? 'fa fa-star' : 'fa fa-star-o'}}" 
 	             	data-trigger="click"
 	             	data-placement="bottom" popover></a>
+	            <a ng-if="!username" class="fav-icon  fa fa-star-o" uib-tooltip="Please login to add this location as favorite!"></a>
 	             <!-- <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a> -->
 			</h3>
 			

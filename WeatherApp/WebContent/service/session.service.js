@@ -4,7 +4,7 @@
         .module("WeatherApp")
         .factory("SessionService", sessionService);
     
-    function sessionService($http) {
+    function sessionService($http, $rootScope) {
     	var api = {
     		login: login,
     		logout: logout,
@@ -22,13 +22,26 @@
     		            console.log("login successful");
     		            console.log(data);
     		            localStorage.setItem("session", {});
+    		            $rootScope.username = user.username;
     		        }, function(data) {
     		        	console.log("error logging in");
     		        });
     	}
     	
     	function logout() {
-            localStorage.removeItem("session");
+    		return $http.get("user/logout.htm")
+    			.then(function(response) {
+    				if(response.data === 200) {
+	    				console.log(response);
+	    				$rootScope.username = null;
+	    				localStorage.removeItem("session");
+    				} else {
+    					console.log("could not logout user");
+    				}
+    			}, 
+    			function(error) {   
+    				console.log("Error logging out user");
+    			});
         }
     	
     	function isLoggedIn() {

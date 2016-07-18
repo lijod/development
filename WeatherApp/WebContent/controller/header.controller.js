@@ -3,7 +3,7 @@
         .module("WeatherApp")
         .controller("HeaderController", HeaderController);
     
-    function HeaderController(SessionService) {
+    function HeaderController(SessionService, $location) {
     	
     	var vm = this;
     	
@@ -15,7 +15,10 @@
     	init();
     	
     	function logout() {
-    		SessionService.logout();
+    		SessionService.logout()
+    			.then(function(response) {
+    				$location.path("/login");
+    			});
     	}
     	
     }

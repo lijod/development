@@ -3,7 +3,7 @@
         .module("WeatherApp")
         .controller("WeatherController", WeatherController);
 
-    function WeatherController($scope, WeatherService, SessionService) {
+    function WeatherController($scope, $rootScope, WeatherService, SessionService) {
     	var vm = this;
     	
     	function init() {
@@ -50,6 +50,10 @@
     	function addToFav(name, isLocal) {
     		console.log(name, isLocal);
     		
+    		if(!isLocal) {
+    			isLocal = false;
+    		}
+    		
     		WeatherService
     			.addToFav(vm.zipCode, name, isLocal)
     			.then(function(response) {
@@ -83,6 +87,7 @@
     			console.log("Session found");
     			SessionService.currentUser()
     					.then(function(response) {
+    						 $rootScope.username = response.data.username;
     						loadSavedPreferences(response.data.prefList);
     					},
     					function (error) {

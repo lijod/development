@@ -18,7 +18,7 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
     }
     
     @Override
-    public WeatherPreference addPreference(long userId, String zipcode, boolean isLocal, String name) {
+    public WeatherPreference addUpdatePreference(long userId, String zipcode, boolean isLocal, String name) {
     	WeatherPreference pref = new WeatherPreference(new WeatherPrefPK(userId, zipcode), isLocal, name); 
     	
     	Session session = this.sessionFactory.getCurrentSession();
@@ -36,12 +36,6 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
     	session.delete(pref);
     	tx.commit();
     	return pref;
-	}
-
-	@Override
-	public void editPreference(WeatherPreference pref, String name) {
-		// TODO Auto-generated method stub
-	}
-
+    }
 	
 }

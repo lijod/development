@@ -1,7 +1,7 @@
 "use strict";
 (function(){
     angular
-        .module("WeatherApp", ["ngRoute", "ngMap", "ngResource"])
+        .module("WeatherApp", ["ngRoute", "ngMap", "ngResource", "ui.bootstrap"])
         .directive('popover', function($compile){
 								    return {
 								        restrict : 'A',
