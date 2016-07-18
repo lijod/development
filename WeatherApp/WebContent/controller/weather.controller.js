@@ -73,6 +73,11 @@
     	function loadSavedPreferences(prefList) {
     		vm.prefList = prefList;
     		
+    		if(!prefList || prefList.length == 0) {
+    			loadWeatherWithoutSession();
+    			return;
+    		}
+    		
     		prefList.forEach(function(pref, index, arr) {
     			if(pref.local) {
     				loadWeatherForZipcode(pref.weatherPrefPK.zipcode);

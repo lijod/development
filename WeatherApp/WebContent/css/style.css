@@ -5,3 +5,20 @@ body {
 .fav-icon {
 	color: orange;
 }
+
+#location {
+    position: relative;
+    width: 200px;
+}
+
+#location input {
+    width: 194px;
+}
+
+#location a {
+    position: absolute;
+    top: -1px;
+    right: 3px;
+    margin: 3px 0;
+    z-index: 1000000;
+}

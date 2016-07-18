@@ -1,17 +1,12 @@
 <div class="container">
-	<div class="text-center row">
-		<div class="col-xs-offset-4 col-xs-4">
-			<div class="row input-group">
-				<div class="col-xs-8">
-				    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-					<input class="form-control" type="text" ng-model="model.zipCode" placeholder="Zipcode"/>
-				</div>
-				<div class="col-xs-4">
-					<a class="btn btn-warning btn-sm" ng-click="model.loadWeatherForZipcode(model.zipCode)"> Update</a>
-				</div>
-			</div>
+	<div class="text-center row"> 
+		<div class="col-xs-offset-4 col-xs-4 input-group" id="location">
+		    <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
+			<input class="form-control" type="text" ng-model="model.zipCode" placeholder="Zipcode"/>
+			<a class="btn btn-warning btn-sm" ng-click="model.loadWeatherForZipcode(model.zipCode)"> Update</a>
 		</div>
 	</div>
+	<hr/>
 	<div class=row>
 		<div class="col-sm-8">
 			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
