@@ -19,11 +19,11 @@
     		        "&password=" + user.password, {
     		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     		        } ).then(function(data) {
-    		            alert("login successful");
+    		            console.log("login successful");
     		            console.log(data);
     		            localStorage.setItem("session", {});
     		        }, function(data) {
-    		            alert("error logging in");
+    		        	console.log("error logging in");
     		        });
     	}
     	

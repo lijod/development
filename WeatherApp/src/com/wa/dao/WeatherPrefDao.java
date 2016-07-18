@@ -6,7 +6,7 @@ public interface WeatherPrefDao {
     
 	public WeatherPreference addPreference(long userId, String zipcode, boolean isLocal, String name);
 	
-	public void removePreference(WeatherPreference pref);
+	public WeatherPreference removePreference(WeatherPreference pref);
 	
 	public void editPreference(WeatherPreference pref, String name);
 	

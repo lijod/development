@@ -3,6 +3,7 @@ package com.wa.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class WeatherAppController {
 	UserDao userDao;
 
 	@RequestMapping(value = "/addfavlocation.htm", method = RequestMethod.GET)
-	public WeatherPreference getIndexPage(@RequestParam(value = "zipcode") String zipcode,
+	public WeatherPreference addFavoriteLocation(@RequestParam(value = "zipcode") String zipcode,
 			@RequestParam(value = "name") String name, @RequestParam(value = "islocal") boolean isLocal, Principal principal) {
 		System.out.println(zipcode + " " + name + " " + isLocal);
 		
@@ -38,4 +39,10 @@ public class WeatherAppController {
 		
 		return null;
 	}
+	
+	@RequestMapping(value = "/removefavlocation.htm", method = RequestMethod.POST)
+	public WeatherPreference deleteFavoriteLocation(@RequestBody WeatherPreference pref) {
+		return weatherPrefDao.removePreference(pref);
+	}
+	
 }

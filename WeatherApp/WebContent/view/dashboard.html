@@ -10,7 +10,7 @@
 	<div class=row>
 		<div class="col-sm-8">
 			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
-	             <a class="fav-icon fa fa-star-o" 
+	             <a class="fav-icon {{model.hasPref ? 'fa fa-star' : 'fa fa-star-o'}}" 
 	             	data-trigger="click"
 	             	data-placement="bottom" popover></a>
 	             <!-- <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a> -->
@@ -31,9 +31,13 @@
 	<div id="popover-title" class="hide">Add to preference</div>
 	<div id="popover-content" class="hide"> 
 		<form>
-			<input type='text' placeholder='Location name' ng-model='model.currLocation.name' /> <br/><br/>
-			<label for='local'>Default location?</label> <input name='local' type='checkbox' checked='model.currLocation.local' />
-			<a href='' ng-click='model.addToFav(model.pref)' class='btn btn-success btn-xs'>Add</a>
+			<input type='text' placeholder='Location name' ng-model='model.pref.name' /> <br/><br/>
+			<label for='local'>Default location?</label> <input name='local' type='checkbox' ng-model='model.pref.local' />
+			<br/>
+			<div class="text-center">
+				<a href='' ng-click='model.removeFav(model.pref)'  class='btn btn-danger btn-xs' ng-show='model.hasPref'>Remove</a>
+				<a href='' ng-click='model.addToFav(model.pref.name, model.pref.local)' class='btn btn-success btn-xs'>{{model.hasPref ? 'Update' : 'Add'}}</a>
+			</div>
 		</form>
 	</div>
 </div>

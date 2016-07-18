@@ -6,6 +6,11 @@ body {
 	color: orange;
 }
 
+.fav-icon:hover {
+	color: #FBBC05 !important;
+    text-decoration: none;
+}
+
 #location {
     position: relative;
     width: 200px;

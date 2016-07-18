@@ -23,15 +23,19 @@ public class WeatherPrefDaoImpl implements WeatherPrefDao{
     	
     	Session session = this.sessionFactory.getCurrentSession();
     	Transaction tx = session.beginTransaction();
-    	session.persist(pref);
+    	session.saveOrUpdate(pref);
     	tx.commit();
     	
     	return pref;
     }
 
     @Override
-	public void removePreference(WeatherPreference pref) {
-		// TODO Auto-generated method stub
+	public WeatherPreference removePreference(WeatherPreference pref) {
+    	Session session = this.sessionFactory.getCurrentSession();
+    	Transaction tx = session.beginTransaction();
+    	session.delete(pref);
+    	tx.commit();
+    	return pref;
 	}
 
 	@Override

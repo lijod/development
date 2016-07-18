@@ -14,10 +14,14 @@
     		vm.icon = "";
     		vm.wind = "";
     		vm.loadWeatherForZipcode = loadWeatherForZipcode;
-    		vm.addToFav = addToFav;
     		vm.isFavorite = false;
+    		vm.hasPref = false;
     		vm.prefList = [];
     		loadWeather();
+
+    		//Function declarations
+    		vm.addToFav = addToFav;
+    		vm.removeFav = removeFav;
     	}
     	
     	init();
@@ -44,13 +48,33 @@
     	}
     	
     	function addToFav(name, isLocal) {
+    		console.log(name, isLocal);
+    		
     		WeatherService
     			.addToFav(vm.zipCode, name, isLocal)
     			.then(function(response) {
     				console.log(response);
+    				vm.pref = response.data;
+    				vm.hasPref = true;
     			},
     			function(error) {
     				console.log(error);
+    			});
+    	}
+    	
+    	function removeFav(pref) {
+    		console.log(pref);
+    		
+    		WeatherService
+    			.removeFav(pref)
+    			.then(function(response) {
+    				if(response.data) {
+    					vm.pref= {};
+    					vm.hasPref = false;
+    				}
+    			},
+    			function(error) {
+    				console.log("Error deleting preference");
     			});
     	}
     	
@@ -73,7 +97,7 @@
     	function loadSavedPreferences(prefList) {
     		vm.prefList = prefList;
     		
-    		if(!prefList || prefList.length == 0) {
+    		if(!prefList) {
     			loadWeatherWithoutSession();
     			return;
     		}
@@ -81,11 +105,14 @@
     		prefList.forEach(function(pref, index, arr) {
     			if(pref.local) {
     				loadWeatherForZipcode(pref.weatherPrefPK.zipcode);
-    				vm.currLocation = pref;
+    				vm.pref = pref;
+    				vm.hasPref = true;
     				console.log(pref);
     				return;
     			}
     		});	
+    		
+    		loadWeatherWithoutSession();
     	}
     	
     	function loadWeatherForZipcode(zipcode) {

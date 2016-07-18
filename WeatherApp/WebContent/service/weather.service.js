@@ -7,10 +7,10 @@
 
     function WeatherService($http) {
     	
-    	
     	var api = {
 			getWeatherDetailsForZipcode : getWeatherDetailsForZipcode,
-			addToFav: addToFav
+			addToFav: addToFav,
+			removeFav: removeFav
     	};
     	
     	return api;
@@ -21,6 +21,10 @@
     	
     	function addToFav(zipcode, name, isLocal) {
     		return $http.get("weather/addfavlocation.htm?zipcode=" + zipcode + "&name="  + name + "&islocal=" + isLocal);
+    	}
+    	
+    	function removeFav(pref) {
+    		return $http.post("weather/removefavlocation.htm", pref);
     	}
     	
     }
