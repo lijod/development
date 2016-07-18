@@ -15,6 +15,13 @@
 	             	data-placement="bottom" popover></a>
 	            <a ng-if="!username" class="fav-icon  fa fa-star-o" uib-tooltip="Please login to add this location as favorite!"></a>
 	             <!-- <a ng-click="" ng-if="model.isFavorite" class="fav-icon fa fa-star"></a> -->
+	             
+	            <!-- Button trigger modal -->
+				<small ng-if="username">
+					<a href="" class="fav-icon" data-toggle="modal" data-target="#myModal">
+					  Saved
+					</a>
+				</small>
 			</h3>
 			
 			<div class="row">
@@ -29,7 +36,11 @@
 		</div>
 	</div>
 	
-	<div id="popover-title" class="hide">Add to preference</div>
+	<div id="popover-title" class="hide">
+		<span>Add to preference</span>
+		<a href="" data-toggle="popover">close</a>
+	</div>
+	
 	<div id="popover-content" class="hide"> 
 		<form>
 			<input type='text' placeholder='Location name' ng-model='model.pref.name' /> <br/><br/>
@@ -41,4 +52,36 @@
 			</div>
 		</form>
 	</div>
-</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	        <h4 class="modal-title" id="myModalLabel">Saved locations</h4>
+	      </div>
+	      <div class="modal-body">
+        	<table class="table">
+        		<tr>
+        			<th class="text-center">Zipcode</th>
+        			<th class="text-center">Name</th>
+        			<th class="text-center">Is Local</th>
+        		</tr>
+        		<tr ng-repeat="pref in model.prefList">
+        			<td class="text-center"><a href=""  data-dismiss="modal" ng-click="model.loadWeatherFromPref(pref)">{{pref.weatherPrefPK.zipcode}}</a></td>
+        			<td class="text-center">{{pref.name}}</td>
+        			<td class="text-center">{{pref.local}}</td>
+        		</tr>
+        	
+        	</table>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>	

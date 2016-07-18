@@ -14,6 +14,7 @@
     		vm.icon = "";
     		vm.wind = "";
     		vm.loadWeatherForZipcode = loadWeatherForZipcode;
+    		vm.loadWeatherFromPref = loadWeatherFromPref;
     		vm.isFavorite = false;
     		vm.hasPref = false;
     		vm.prefList = [];
@@ -66,6 +67,7 @@
     			.then(function(response) {
     				console.log(response);
     				vm.pref = response.data;
+    				vm.prefList.push(response.data);
     				vm.hasPref = true;
     			},
     			function(error) {
@@ -120,6 +122,8 @@
     	function loadSavedPreferences(prefList) {
     		vm.prefList = prefList;
     		
+    		console.log(prefList)
+    		
     		if(!prefList) {
     			loadWeatherWithoutSession();
     			return;
@@ -127,13 +131,9 @@
     		
     		prefList.forEach(function(pref, index, arr) {
     			if(pref.local) {
-    				loadWeatherForZipcode(pref.weatherPrefPK.zipcode);
-    				vm.pref = pref;
-    				vm.hasPref = true;
-    				console.log(pref);
-    				return;
+    				loadWeatherFromPref(pref);
     			}
-    		});	
+    		});
     		
     		loadWeatherWithoutSession();
     	}
@@ -142,6 +142,15 @@
     		vm.zipCode = zipcode;
     		loadWeatherWithoutSession();
     	}
+    	
+    	function loadWeatherFromPref(pref) {
+    		loadWeatherForZipcode(pref.weatherPrefPK.zipcode);
+			vm.pref = pref;
+			vm.hasPref = true;
+			console.log(pref);
+			return;
+    	}
+    	
     }
     
 })();
