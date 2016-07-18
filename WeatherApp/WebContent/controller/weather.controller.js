@@ -50,6 +50,13 @@
     	function addToFav(name, isLocal) {
     		console.log(name, isLocal);
     		
+    		if(!name || name.trim() ==="") {
+    			swal('Please!',
+   	    			 'Enter a name for this location.',
+   	    			 'warning');
+    			return;
+    		}
+    		
     		if(!isLocal) {
     			isLocal = false;
     		}
@@ -67,18 +74,29 @@
     	}
     	
     	function removeFav(pref) {
-    		console.log(pref);
-    		
-    		WeatherService
-    			.removeFav(pref)
-    			.then(function(response) {
-    				if(response.data) {
-    					vm.pref= {};
-    					vm.hasPref = false;
-    				}
-    			},
-    			function(error) {
-    				console.log("Error deleting preference");
+    		swal({
+    			  title: 'Are you sure?',
+    			  text: "You won't be able to revert this!",
+    			  type: 'warning',
+    			  showCancelButton: true,
+    			  confirmButtonColor: '#3085d6',
+    			  cancelButtonColor: '#d33',
+    			  confirmButtonText: 'Yes, delete it!'
+    			}).then(function() {
+    				WeatherService
+        			.removeFav(pref)
+        			.then(function(response) {
+        				if(response.data) {
+        					vm.pref= {};
+        					vm.hasPref = false;
+        				}
+        				swal('Deleted!',
+        	    			 'Your file has been deleted.',
+        	    			 'success');
+        			},
+        			function(error) {
+        				console.log("Error deleting preference");
+        			});
     			});
     	}
     	
