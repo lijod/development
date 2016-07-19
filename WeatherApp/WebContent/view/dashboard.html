@@ -36,6 +36,49 @@
 		</div>
 	</div>
 	
+	<div class="row">
+		<h4 class="">Forecast for next 5 days</h4>
+        <div class="content">
+            <div class="panel-group" id="accordion">
+                <div class="panel panel-default" ng-repeat="key in model.sortedForecastKey">
+                    <div class="panel-heading">
+                         <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
+                          {{key}}
+                        </a>
+                      </h4>
+
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            
+                 			<div class="container-fluid">
+                 				<div class="row">
+                 					<div class="col-sm-1" ng-repeat="element in model.forecast[key]">
+                 						<div class="row">
+                 							<img ng-src="{{model.getIconImgSrc(element.weather[0].icon)}}"/>
+                 						</div>
+                 						<div class="row">
+                 							<span>Low: </span> <span>{{element.dt_txt.substring(11,16)}}</span>
+                 						</div>
+                 						<div class="row">
+                 							<span>High: </span> <span>{{element.main.temp_max}}</span>
+                 						</div>
+                 						<div class="row">
+                 							<span>Low: </span> <span>{{element.main.temp_min}}</span>
+                 						</div>
+                 					</div>
+                 				</div>
+                 			</div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+	</div>
+	
+	
 	<div id="popover-title" class="hide">
 		<span>Add to preference</span>
 	</div>
@@ -89,15 +132,13 @@
 <script>
 	$(function(){
 	    $('html').click(function(e) {
-	        // this is my departure from pbaron's code above
-	        // $('.popup-marker').popover('hide');
 	        $('.popover').each(function() {
 	            if ($(e.target).parents().children('.popover').attr('id')!=($(this).attr('id'))) {
 	                $(this).popover('hide');
 	            }
 	        });
 	    });
-	
+		
 	    $('.popover').click(function(e) {
 	        $(this).popover('toggle');
 	        e.stopPropagation();

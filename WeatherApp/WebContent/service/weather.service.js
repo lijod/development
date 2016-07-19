@@ -9,6 +9,7 @@
     	
     	var api = {
 			getWeatherDetailsForZipcode : getWeatherDetailsForZipcode,
+			get5DayForecastForZipcode: get5DayForecastForZipcode,
 			addToFav: addToFav,
 			removeFav: removeFav
     	};
@@ -17,6 +18,10 @@
     	
     	function getWeatherDetailsForZipcode(zipCode) {
     		return $http.get("http://api.openweathermap.org/data/2.5/weather?apikey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
+    	}
+    	
+    	function get5DayForecastForZipcode(zipCode) {
+    		return $http.get("http://api.openweathermap.org/data/2.5/forecast?apiKey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
     	}
     	
     	function addToFav(zipcode, name, isLocal) {

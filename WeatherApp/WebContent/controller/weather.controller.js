@@ -15,9 +15,12 @@
     		vm.wind = "";
     		vm.loadWeatherForZipcode = loadWeatherForZipcode;
     		vm.loadWeatherFromPref = loadWeatherFromPref;
+    		vm.getIconImgSrc = getIconImgSrc;
     		vm.isFavorite = false;
     		vm.hasPref = false;
     		vm.prefList = [];
+    		vm.forecast = {};
+    		vm.sortedForecastKey = [];
     		loadWeather();
 
     		//Function declarations
@@ -37,10 +40,11 @@
     			.getWeatherDetailsForZipcode(vm.zipCode)
     			.then(function(response) {
     				console.log(response);
+    				load5DayForcast();
     				vm.main = response.data.main;
     				vm.locationName = response.data.name;
     				vm.coordinates = response.data.coord;
-    				vm.icon = "http://openweathermap.org/img/w/" + response.data.weather[0].icon + ".png";
+    				vm.icon = getIconImgSrc(response.data.weather[0].icon);
     				vm.wind = response.data.wind;
     			},
     			function(error) {
@@ -166,5 +170,38 @@
     		
     		vm.prefList.splice(toDelete, 1);
     	}
+    	
+    	function load5DayForcast() {
+    		WeatherService
+				.get5DayForecastForZipcode(vm.zipCode)
+				.then(function(response) {
+					processForecastForView(response.data["list"]);
+				},
+				function(error) {
+					
+				});
+    	}
+    	
+    	function processForecastForView(data) {
+    		forecast = {};
+    		sortedForecastKey = [];
+    		console.log(data.length);
+    		data.forEach(function(element, index, arr) {
+    			var date = element["dt_txt"].substring(0, 10);
+    			if(! (date in forecast)) {
+    				forecast[date] = [];
+    				sortedForecastKey.push(date);
+    			}
+    			forecast[date].push(element);
+    		});
+    		sortedForecastKey.sort();
+    		vm.forecast = forecast;
+    		vm.sortedForecastKey = sortedForecastKey;
+    	}
+    	
+    	function getIconImgSrc(iconId) {
+    		return "http://openweathermap.org/img/w/" + iconId + ".png"
+    	}
+    	
     }
 })();
