@@ -89,6 +89,7 @@
         			.removeFav(pref)
         			.then(function(response) {
         				if(response.data) {
+        					removeFavFromPrefList(response.data);
         					vm.pref= {};
         					vm.hasPref = false;
         				}
@@ -140,6 +141,8 @@
     	
     	function loadWeatherForZipcode(zipcode) {
     		vm.zipCode = zipcode;
+    		vm.pref = {};
+			vm.hasPref = false;
     		loadWeatherWithoutSession();
     	}
     	
@@ -151,6 +154,17 @@
 			return;
     	}
     	
+    	function removeFavFromPrefList(pref) {
+    		var toDelete = -1;
+    		for(i in vm.prefList) {
+    			if(vm.prefList[i].weatherPrefPK.zipcode === pref.weatherPrefPK.zipcode && vm.prefList[i].weatherPrefPK.userId === pref.weatherPrefPK.userId) {
+    				toDelete = i;
+    				break;
+    			}
+    		}
+    		console.log(toDelete);
+    		
+    		vm.prefList.splice(toDelete, 1);
+    	}
     }
-    
 })();

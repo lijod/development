@@ -38,7 +38,6 @@
 	
 	<div id="popover-title" class="hide">
 		<span>Add to preference</span>
-		<a href="" data-toggle="popover">close</a>
 	</div>
 	
 	<div id="popover-content" class="hide"> 
@@ -85,3 +84,23 @@
 	  </div>
 	</div>
 </div>	
+
+
+<script>
+	$(function(){
+	    $('html').click(function(e) {
+	        // this is my departure from pbaron's code above
+	        // $('.popup-marker').popover('hide');
+	        $('.popover').each(function() {
+	            if ($(e.target).parents().children('.popover').attr('id')!=($(this).attr('id'))) {
+	                $(this).popover('hide');
+	            }
+	        });
+	    });
+	
+	    $('.popover').click(function(e) {
+	        $(this).popover('toggle');
+	        e.stopPropagation();
+	    });
+	});
+</script>
