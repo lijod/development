@@ -31,3 +31,11 @@ body {
 .nav .text {
 	color: #9D9D9D;
 }
+
+.weather-hr {
+	margin-left: 15px;
+}
+
+.nowrap {
+	white-space: nowrap;
+}

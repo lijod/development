@@ -54,18 +54,18 @@
                             
                  			<div class="container-fluid">
                  				<div class="row">
-                 					<div class="col-sm-1" ng-repeat="element in model.forecast[key]">
+                 					<div class="col-sm-1 weather-hr" ng-repeat="element in model.forecast[key]">
                  						<div class="row">
                  							<img ng-src="{{model.getIconImgSrc(element.weather[0].icon)}}"/>
                  						</div>
                  						<div class="row">
-                 							<span>Low: </span> <span>{{element.dt_txt.substring(11,16)}}</span>
+                 							<span>{{element.dt_txt.substring(11,16)}}</span>
                  						</div>
-                 						<div class="row">
-                 							<span>High: </span> <span>{{element.main.temp_max}}</span>
+                 						<div class="row nowrap">
+                 							<span><i class="fa fa-arrow-up" aria-hidden="true"></i> </span> <span>{{element.main.temp_max}}</span>
                  						</div>
-                 						<div class="row">
-                 							<span>Low: </span> <span>{{element.main.temp_min}}</span>
+                 						<div class="row nowrap">
+                 							<span><i class="fa fa-arrow-down" aria-hidden="true"></i> </span> <span>{{element.main.temp_min}}</span>
                  						</div>
                  					</div>
                  				</div>
