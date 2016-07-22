@@ -9,7 +9,7 @@
 	<hr/>
 	<div class=row>
 		<div class="col-sm-8">
-			<h3>Current Weather at {{model.locationName}} ({{model.coordinates.lat}}, {{model.coordinates.lon}})
+			<h3>Current Weather at {{model.hasPref ? model.pref.name : model.locationName}}
 	             <a ng-if="username" class="fav-icon {{model.hasPref ? 'fa fa-star' : 'fa fa-star-o'}}" 
 	             	data-trigger="click"
 	             	data-placement="bottom" popover></a>
@@ -40,16 +40,16 @@
 		<h4 class="">Forecast for next 5 days</h4>
         <div class="content">
             <div class="panel-group" id="accordion">
-                <div class="panel panel-default" ng-repeat="key in model.sortedForecastKey">
+                <div class="panel panel-default" ng-repeat="key in model.sortedForecastKey track by $index">
                     <div class="panel-heading">
                          <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapseOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="" data-target="#collapse{{$index}}">
                           {{key}}
                         </a>
                       </h4>
 
                     </div>
-                    <div id="collapseOne" class="panel-collapse collapse in">
+                    <div id="collapse{{$index}}" class="panel-collapse collapse">
                         <div class="panel-body">
                             
                  			<div class="container-fluid">

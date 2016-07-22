@@ -17,11 +17,11 @@
     	return api;
     	
     	function getWeatherDetailsForZipcode(zipCode) {
-    		return $http.get("http://api.openweathermap.org/data/2.5/weather?apikey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
+    		return $http.get("http://api.openweathermap.org/data/2.5/weather?units=metric&apikey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
     	}
     	
     	function get5DayForecastForZipcode(zipCode) {
-    		return $http.get("http://api.openweathermap.org/data/2.5/forecast?apiKey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
+    		return $http.get("http://api.openweathermap.org/data/2.5/forecast?units=metric&apiKey=d35593705091ed00355d127ba301ea54&zip=" + zipCode);
     	}
     	
     	function addToFav(zipcode, name, isLocal) {
