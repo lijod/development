@@ -15,6 +15,7 @@
     		vm.wind = "";
     		vm.loadWeatherForZipcode = loadWeatherForZipcode;
     		vm.loadWeatherFromPref = loadWeatherFromPref;
+    		vm.getDate = getDate;
     		vm.getIconImgSrc = getIconImgSrc;
     		vm.isFavorite = false;
     		vm.hasPref = false;
@@ -26,6 +27,16 @@
     		//Function declarations
     		vm.addToFav = addToFav;
     		vm.removeFav = removeFav;
+    		var weekday=new Array(7);
+    		weekday[0]="Sunday";
+    		weekday[1]="Monday";
+    		weekday[2]="Tuesday";
+    		weekday[3]="Wednesday";
+    		weekday[4]="Thursday";
+    		weekday[5]="Friday";
+    		weekday[6]="Saturday";
+    		
+    		vm.weekday = weekday;
     	}
     	
     	init();
@@ -201,6 +212,10 @@
     	
     	function getIconImgSrc(iconId) {
     		return "http://openweathermap.org/img/w/" + iconId + ".png"
+    	}
+    	
+    	function getDate(date) {
+    		return new Date(Date.parse(date));
     	}
     	
     }

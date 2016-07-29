@@ -15,7 +15,7 @@
     	return api;
     	
     	function login(user) {
-    		return $http.post("/WeatherApp/login", "username=" + user.username +
+    		return $http.post("login", "username=" + user.username +
     		        "&password=" + user.password, {
     		            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     		        } ).then(function(data) {

@@ -14,7 +14,7 @@
     	
     	
     	function register(user, success, failure) {
-    		var User = $resource("/WeatherApp/user/register.htm");
+    		var User = $resource("user/register.htm");
     		User.save({}, user, success, failure);
     	}
     }
