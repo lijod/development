@@ -198,4 +198,15 @@ public class BinaryTree<T> {
 		
 	}
 	
+	public int getDistance(Node root, int num1, int num2) {
+		return getDistance(root, num1, num2, 0);
+	}
+
+	private int getDistance(Node node, int num1, int num2, int i) {
+		
+		return 0;
+	}
+	
+	
+	
 }
