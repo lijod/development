@@ -44,7 +44,7 @@
     	function loadWeatherWithoutSession() {
     		console.log(vm.zipCode);
     		if(vm.zipCode === "") {
-    			vm.zipCode = "02120";
+    			vm.zipCode = "boston";
     		}
     		
     		WeatherService

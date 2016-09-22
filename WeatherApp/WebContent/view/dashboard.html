@@ -2,7 +2,7 @@
 	<div class="text-center row"> 
 		<div class="col-md-offset-4 col-md-4 col-xs-offset-2 col-xs-4 input-group" id="location">
 		    <span class="input-group-addon"><i class="fa fa-map-marker" aria-hidden="true"></i></span>
-			<input class="form-control" type="text" ng-model="model.zipCode" placeholder="Zipcode"/>
+			<input class="form-control" type="text" ng-model="model.zipCode" placeholder="City"/>
 			<a class="btn btn-warning btn-sm" ng-click="model.loadWeatherForZipcode(model.zipCode)"> Update</a>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
 			
 			<div class="row">
 				<div class="col-xs-1"><img ng-src="{{model.icon}}"></div>
-				<div class="col-xs-8"><h4>Current: {{model.main.temp}}&deg;C</h4> <br/> High: {{model.main.temp_max}}&deg;C Low: {{model.main.temp_min}}&deg;C </div>
+				<div class="col-xs-8"><h4>Current: {{model.main.temp}}&deg;F</h4> <br/> High: {{model.main.temp_max}}&deg;F Low: {{model.main.temp_min}}&deg;F </div>
 			</div>
 		</div>
 		<div class="col-sm-4">
