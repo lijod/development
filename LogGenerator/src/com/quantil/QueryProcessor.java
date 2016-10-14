@@ -8,8 +8,9 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.nio.file.Files;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -122,6 +123,7 @@ public class QueryProcessor {
 						long startTime = Utility.getUnixTime(inputSplit[3] + " " + inputSplit[4], "yyyy-MM-dd HH:mm");
 						long endTime = Utility.getUnixTime(inputSplit[5] + " " + inputSplit[6], "yyyy-MM-dd HH:mm");
 						
+						System.out.println("CPU" + inputSplit[2] + " usage on:"  + inputSplit[1]);
 						System.out.println(getUsage(inputSplit[1], inputSplit[2], startTime, endTime));
 						
 						long end = System.currentTimeMillis();
@@ -153,7 +155,7 @@ public class QueryProcessor {
 		String indexPath = prop.getProperty("index.output.path");
 		String indexFile = prop.getProperty("index.output.filename");
 		String catalogFilePath = indexPath + File.separator + indexFile;
-		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		StringBuilder sb = new StringBuilder();
 		
 		try (RandomAccessFile logFile = new RandomAccessFile(logPath, "r");
@@ -183,7 +185,9 @@ public class QueryProcessor {
 					}
 					
 					if(lineSplit[1].equals(serverId) && lineSplit[2].equals(cpuId)) {
-						sb.append("(" + startTime + " " + lineSplit[3]  + ")");
+						Date date = new Date((long) startTime * 1000);
+						
+						sb.append("(" + dateFormat.format(date) + ", " + lineSplit[3]  + "%), ");
 						break;
 					}
 					
@@ -192,6 +196,7 @@ public class QueryProcessor {
 			}
 		}
 		
+		sb.setLength(sb.length() - 2);
 		return sb.toString();
 	}
 	
@@ -241,6 +246,5 @@ public class QueryProcessor {
 		
 		return sb.toString();
 	}
-	
 	
 }
