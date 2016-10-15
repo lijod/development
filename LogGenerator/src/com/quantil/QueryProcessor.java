@@ -15,63 +15,86 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
+import java.util.Set;
 
+/**
+ * QueryProcessor class lets you query CPU usage for a specific CPU for a specific 
+ * in a given time period. It is an interactive command line tool which reads a  
+ * user’s commands from stdin.
+ * @author lijodaniel
+ */
 public class QueryProcessor {
 	
+	/**
+	 * This hash map stores the file offset for a server entry in the catalog file.
+	 * Example:
+	 * <key, value> => <192.168.0.1, 1701144>
+	 */
 	private final Map<String, Long> serverOffsetCatalog;
-	private final Properties prop;
 	
 	public QueryProcessor() {
 		serverOffsetCatalog = new HashMap<>();
-		prop = PropertyUtil.getProperty();
-		
-		try {
-			generateServerCatalog();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		process();
 	}
 	
-	private void generateServerCatalog() throws FileNotFoundException, IOException {
+	/**
+	 * Create catalog for log data and initialize the program to processes user query
+	 */
+	public void loadProcessor() {
+		boolean catalogCreated = generateServerCatalog();
+		if(catalogCreated) {
+			process();
+		} else {
+			System.out.println("An error occured when loading log file, please try again!");
+		}
+	}
+	
+	/**
+	 * Generate a catalog with serverId as 1st field and tuples of timestamp and 
+	 * offset in log file
+	 * Format: <Server IP> <timestamp1,offset1> <timestamp2,offset2> ...
+	 * @return
+	 */
+	private boolean generateServerCatalog() {
 		System.out.println("Loading log file for query processing...");
 		
 		long start = System.currentTimeMillis();
 		int uniqueTimeCount = 0;
+		
+		// Holds server ip as key and list of tuples (timestamp, offset) as value.
+		// This will be flushed to catalog file
 		HashMap<String, List<long[]>> serverTimeOffset = new LinkedHashMap<>();
 		
-		String logPath = prop.getProperty("log.output.path");
+		String logPath = Utility.getLogPath();
 		
-		try (RandomAccessFile file = new RandomAccessFile(logPath, "r")) {
+		try (RandomAccessFile file = new RandomAccessFile(logPath, AppConstants.ACCESSTYPE_READ)) {
 			// Skipping the header line
 			file.readLine();
 			
-			String line;
+			String logLine;
 			long prevTime = 0L;
-			long lineOffset = file.getFilePointer();
+			long logOffset = file.getFilePointer();
 			String prevServerId = "";
-			while((line = file.readLine()) != null) {
+			while((logLine = file.readLine()) != null) {
 				
-				String[] lineSplit = line.split("\t");
-				if(lineSplit.length != 4) {
+				String[] logLineSplit = logLine.split("\t");
+				if(logLineSplit.length != 4) {
 					continue;
 				}
 				
-				String serverId = lineSplit[1];
+				String serverId = logLineSplit[1];
 				
 				// Only saves offset for 1st ip occurrence
 				if(prevServerId.equals(serverId)) {
 					continue;
 				}
 				
-				long currTime = Long.parseLong(lineSplit[0]);
+				long currTime = Long.parseLong(logLineSplit[0]);
 				
+				// Encountered a new time
 				if(prevTime != currTime) {
 					uniqueTimeCount++;
 					prevTime = currTime;
+					// Flush record for every 100 minute
 					if(uniqueTimeCount == 100) {
 						writeIndexToFile(serverTimeOffset);
 						serverTimeOffset = new LinkedHashMap<>();
@@ -86,29 +109,39 @@ public class QueryProcessor {
 				
 				List<long[]> list = serverTimeOffset.get(serverId);
 				
-				list.add(new long[]{currTime, lineOffset});
+				list.add(new long[]{currTime, logOffset});
 				
 				prevServerId = serverId;
-				lineOffset = file.getFilePointer();
+				logOffset = file.getFilePointer();
 				
 			}
 			writeIndexToFile(serverTimeOffset);
+		} catch(Exception e) {
+			System.out.println("Error occured while processing, generate new log and try again!");
+			System.out.println(e.getMessage());
+			return false;
 		}
 		
 		long end = System.currentTimeMillis();
-		
 		System.out.println(String.format("Total time (sec): %d", ((end - start) / 1000)));
+		
+		return true;
 	}
 	
-	public void process() {
+	/**
+	 * Loads the Query execution for the application and accepts input to be processed and
+	 * prints the usage as per input
+	 */
+	private void process() {
 		
 		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
 			while(true) {
 				try {
-					System.out.println("Please enter one:");
+					printInputOptions();
+					
 					String input = br.readLine();
 					long start = System.currentTimeMillis();
-					if(input.equals("EXIT")) {
+					if(input.equalsIgnoreCase("EXIT")) {
 						System.out.println("Exitting QueryProcessor!");
 						return;
 					} else if (input.startsWith("QUERY")) {
@@ -120,10 +153,10 @@ public class QueryProcessor {
 							continue;
 						}
 						
-						long startTime = Utility.getUnixTime(inputSplit[3] + " " + inputSplit[4], "yyyy-MM-dd HH:mm");
-						long endTime = Utility.getUnixTime(inputSplit[5] + " " + inputSplit[6], "yyyy-MM-dd HH:mm");
+						long startTime = Utility.getUnixTime(inputSplit[3] + " " + inputSplit[4], AppConstants.DATE_TYPE_yyyyMMddHHmm);
+						long endTime = Utility.getUnixTime(inputSplit[5] + " " + inputSplit[6], AppConstants.DATE_TYPE_yyyyMMddHHmm);
 						
-						System.out.println("CPU" + inputSplit[2] + " usage on:"  + inputSplit[1]);
+						System.out.println(String.format("CPU %s usage on: %s", inputSplit[2], inputSplit[1]));
 						System.out.println(getUsage(inputSplit[1], inputSplit[2], startTime, endTime));
 						
 						long end = System.currentTimeMillis();
@@ -137,9 +170,10 @@ public class QueryProcessor {
 				} catch (ParseException e) {
 					System.out.println("Time format invalid, please check you input...");
 				} catch (IOException e) {
-					System.out.println("Unable to load log file while quering!");
+					System.out.println("Unable to load log file for quering!");
 				} catch (Exception e) {
-					System.out.println("Unknown Error!");
+					System.out.println("Unknown Error, please try again!");
+					System.out.println(e.getMessage());
 				}
 			}
 			
@@ -148,24 +182,41 @@ public class QueryProcessor {
 		} 
 		
 	}
-	
-	public String getUsage(String serverId, String cpuId, long startTime, long endTime) throws FileNotFoundException, IOException {
 
-		String logPath = prop.getProperty("log.output.path");
-		String indexPath = prop.getProperty("index.output.path");
-		String indexFile = prop.getProperty("index.output.filename");
-		String catalogFilePath = indexPath + File.separator + indexFile;
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	/**
+	 * 
+	 * @param serverId ServerId in the query
+	 * @param cpuId CPU id in the query
+	 * @param startTime Start time in unix time format
+	 * @param endTime Start time in unix time format
+	 * @return Usage of CPU with cpuID in server with serverId between startTime and endTime
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
+	private String getUsage(String serverId, String cpuId, long startTime, long endTime) throws IOException {
+		String logPath = Utility.getLogPath();
+		String catalogPath = Utility.getCatalogPath();
+		SimpleDateFormat dateFormat = new SimpleDateFormat(AppConstants.DATE_TYPE_yyyyMMddHHmm);
 		StringBuilder sb = new StringBuilder();
 		
-		try (RandomAccessFile logFile = new RandomAccessFile(logPath, "r");
-			RandomAccessFile catalogFile = new RandomAccessFile(catalogFilePath, "r")) {
+		// Open log and catalog file for reading
+		try (RandomAccessFile logFile = new RandomAccessFile(logPath, AppConstants.ACCESSTYPE_READ);
+			RandomAccessFile catalogFile = new RandomAccessFile(catalogPath, AppConstants.ACCESSTYPE_READ)) {
+			
+			// Point to server in catalog file
 			catalogFile.seek(serverOffsetCatalog.get(serverId));
+			
 			String serverInfo = catalogFile.readLine();
 			String[] catalog = serverInfo.split(" ");
 			int catalogIndex = 1;
+			
+			// Get log usage for startTime and increment it by a min (60 sec) until 
+			// endTime is reached
 			while(startTime <= endTime) {
 				long offset = 0l;
+				
+				// Get offset for startTime in catalog for server, starting looking from 
+				// catalogIndex position
 				for(int i = catalogIndex; i < catalog.length; i++) {
 					String[] timeOffset = catalog[i].split(",");
 					long time = Long.parseLong(timeOffset[0]);
@@ -175,8 +226,10 @@ public class QueryProcessor {
 					}
 				}
 				
+				// Point to serverId with startTime in log file
 				logFile.seek(offset);
 				
+				// Get usage for CPU
 				String line;
 				while((line = logFile.readLine()) != null) {
 					String[] lineSplit = line.split("\t");
@@ -186,31 +239,40 @@ public class QueryProcessor {
 					
 					if(lineSplit[1].equals(serverId) && lineSplit[2].equals(cpuId)) {
 						Date date = new Date((long) startTime * 1000);
-						
-						sb.append("(" + dateFormat.format(date) + ", " + lineSplit[3]  + "%), ");
+						sb.append(getFormattedQueryResult(dateFormat.format(date), lineSplit[3]));
 						break;
 					}
-					
 				}
+				
+				// Increment start time by a minute
 				startTime += 60;
 			}
+		} catch(Exception e) {
+			System.out.println("An error occured while processing the query, please try again!");
+			e.printStackTrace();
 		}
 		
-		sb.setLength(sb.length() - 2);
+		if(sb.length() >= 2) {
+			sb.setLength(sb.length() - 2);
+		}
+		
 		return sb.toString();
 	}
 	
+	/**
+	 * Flushes the data from input map to catalog file
+	 * Format: <Server IP> <timestamp1,offset1> <timestamp2,offset2> ...
+	 * @param serverTimeOffset
+	 * @throws IOException
+	 */
 	private void writeIndexToFile(Map<String, List<long[]>> serverTimeOffset) throws IOException {
-		List<String> serverList = new ArrayList<>(serverTimeOffset.keySet());
+		Set<String> serverList = serverTimeOffset.keySet();
 		
-		String indexPath = prop.getProperty("index.output.path");
-		String indexFile = prop.getProperty("index.output.filename");
+		String oldCatalogPath = Utility.getCatalogPath();
+		String newCatalogPath = Utility.getCatalogPath() + "0";
 		
-		String oldFilePath = indexPath + File.separator + indexFile;
-		String newFilePath = indexPath + File.separator + indexFile + "0";
-		
-		try (RandomAccessFile oldFile = new RandomAccessFile(oldFilePath, "rw");
-			RandomAccessFile newFile = new RandomAccessFile(newFilePath, "rw")) {
+		try (RandomAccessFile oldFile = new RandomAccessFile(oldCatalogPath, AppConstants.ACCESSTYPE_READ_WRITE);
+			RandomAccessFile newFile = new RandomAccessFile(newCatalogPath, AppConstants.ACCESSTYPE_READ_WRITE)) {
 			
 			for(String serverId : serverList) {
 				String value = getFormattedTimeOffset(serverTimeOffset.get(serverId));
@@ -227,11 +289,17 @@ public class QueryProcessor {
 			}
 		}
 		
-		Files.deleteIfExists(new File(oldFilePath).toPath());
-		new File(newFilePath).renameTo(new File(oldFilePath));
+		Files.deleteIfExists(new File(oldCatalogPath).toPath());
+		new File(newCatalogPath).renameTo(new File(oldCatalogPath));
 		
 	}
 
+	/**
+	 * Returns a string representation of <timestamp,offset> tuple in the input list
+	 * separated by single space
+	 * @param list List of tuples with 
+	 * @return
+	 */
 	private String getFormattedTimeOffset(List<long[]> list) {
 		StringBuilder sb = new StringBuilder();
 		
@@ -245,6 +313,39 @@ public class QueryProcessor {
 		sb.setLength(sb.length() - 1);
 		
 		return sb.toString();
+	}
+	
+	/**
+	 * Returns a string representation of <date,usage>
+	 * Format: (<Date>, <Usage>%) 
+	 * @param date Date-Time of log
+	 * @param usage Percent used
+	 * @return String representation of 
+	 */
+	private static String getFormattedQueryResult(String date, String usage) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("(");
+		sb.append(date);
+		sb.append(", ");
+		sb.append(usage);
+		sb.append("%), ");
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * Prints query options to STD OUT
+	 */
+	private void printInputOptions() {
+		System.out.println();
+		System.out.println("Please enter one of the options:");
+		System.out.println("1. ");
+		System.out.println("QUERY <SERVER IP> <CPU ID> <START TIME> <END TIME>");
+		System.out.println("Time Format: " + AppConstants.DATE_TYPE_yyyyMMddHHmm);
+		System.out.println("2. ");
+		System.out.println("EXIT");
+		System.out.print(">");
 	}
 	
 }

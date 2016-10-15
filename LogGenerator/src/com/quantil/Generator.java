@@ -45,7 +45,7 @@ public class Generator {
 		return true;
 	}
 	
-	/*
+	/**
 	 * generates a log entry each minute for a given day. The log is generated 
 	 * for each CPU of each server. 
 	 * Server range: 192.168.0.0 - 192.168.255.255
@@ -90,7 +90,7 @@ public class Generator {
 		    }
 		}
 		
-		// Flush all log data left if memory
+		// Flush all log data left in memory
 		FileUtil.writeToFile(logOutputPath, logOutput.toString(), true);
 	}
 
@@ -115,7 +115,7 @@ public class Generator {
 
 	/**
 	 * Returns a UNIX style timestamp for date, hour, minute, and sec specified
-	 * @param date
+	 * @param date 
 	 * @param hour
 	 * @param minute
 	 * @param sec

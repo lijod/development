@@ -23,15 +23,19 @@ public class Utility {
 	}
 	
 	public static String getLogPath() {
-		return prop.getProperty("app.dir") + File.pathSeparator + prop.getProperty("log.file.name");
+		return prop.getProperty("app.dir") + File.separator + prop.getProperty("log.file.name");
+	}
+	
+	public static String getCatalogPath() {
+		return prop.getProperty("app.dir") + File.separator + prop.getProperty("catalog.file.name");
 	}
 	
 	public static int getServerCount() {
-		return Integer.parseInt(prop.getProperty("number.of.servers", "1000"));
+		return Integer.parseInt(prop.getProperty("number.of.servers"));
 	}
 	
 	public static int getCPUCount() {
-		return Integer.parseInt(prop.getProperty("number.of.cpu.per.server", "2"));
+		return Integer.parseInt(prop.getProperty("number.of.cpu.per.server"));
 	}
 	
 	public static int getFlushPerCount() {
