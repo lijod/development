@@ -5,10 +5,10 @@ import java.text.ParseException;
 public class Driver {
 	public static void main(String[] args) throws ParseException {
 		
-//		Generator generator = new Generator();
-//		generator.generate();
+		Generator generator = new Generator();
+		generator.generate();
 		
-		QueryProcessor processor = new QueryProcessor();
+//		QueryProcessor processor = new QueryProcessor();
 		
 	}
 }
