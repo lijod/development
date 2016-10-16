@@ -15,6 +15,10 @@ import java.util.Random;
  */
 public class Generator {
 	
+	public Generator(String appDir) {
+		Utility.setAppDir(appDir);
+	}
+	
 	/**
 	 * Call this method to generate the log file.
 	 * @return true if log is generated successfully

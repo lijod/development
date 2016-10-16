@@ -32,8 +32,9 @@ public class QueryProcessor {
 	 */
 	private final Map<String, Long> serverOffsetCatalog;
 	
-	public QueryProcessor() {
+	public QueryProcessor(String appDir) {
 		serverOffsetCatalog = new HashMap<>();
+		Utility.setAppDir(appDir);
 	}
 	
 	/**
@@ -55,7 +56,7 @@ public class QueryProcessor {
 	 * @return
 	 */
 	private boolean generateServerCatalog() {
-		System.out.println("Loading log file for query processing...");
+		System.out.println("Loading log file for query processing, estimated time 3-4 mins...");
 		
 		long start = System.currentTimeMillis();
 		int uniqueTimeCount = 0;

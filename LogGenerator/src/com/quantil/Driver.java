@@ -3,13 +3,26 @@ package com.quantil;
 import java.text.ParseException;
 
 public class Driver {
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) throws ParseException {		
 		
-//		Generator generator = new Generator();
-//		generator.generate();
+		if(args.length != 2) {
+			System.out.println("Invalid input, cannot run application");
+			return;
+		}
 		
-		QueryProcessor processor = new QueryProcessor();
-		processor.loadProcessor();
+		switch (args[0]) {
+			case "Generator":
+				Generator generator = new Generator(args[1]);
+				generator.generate();
+				break;
+			case "QueryProcessor":
+				QueryProcessor processor = new QueryProcessor(args[1]);
+				processor.loadProcessor();
+				break;
+			default:
+				System.out.println("Invalid input, " + args[0]);
+				break;
+		}
 		
 	}
 }

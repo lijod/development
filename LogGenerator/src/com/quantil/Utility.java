@@ -41,4 +41,8 @@ public class Utility {
 	public static int getFlushPerCount() {
 		return Integer.parseInt(prop.getProperty("flush.record.per"))	;
 	}
+
+	public static void setAppDir(String appDir) {
+		prop.setProperty("app.dir", appDir);
+	}
 }
