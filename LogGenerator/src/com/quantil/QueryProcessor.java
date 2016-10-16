@@ -205,7 +205,7 @@ public class QueryProcessor {
 			RandomAccessFile catalogFile = new RandomAccessFile(catalogPath, AppConstants.ACCESSTYPE_READ)) {
 			
 			// Point to server in catalog file
-			catalogFile.seek(serverOffsetCatalog.get(serverId));
+			catalogFile.seek(serverOffsetCatalog.get(serverId)); // Throw illegal IP exception
 			
 			String serverInfo = catalogFile.readLine();
 			String[] catalog = serverInfo.split(" ");
