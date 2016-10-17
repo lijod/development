@@ -5,6 +5,12 @@ import java.io.IOException;
 
 public class FileUtil {
 	
+	/**
+	 * Writes/appends content to the specified path
+	 * @param path Output file path
+	 * @param content Content to be written
+	 * @param append If true, appends the content, else overwrites
+	 */
 	public static void writeToFile(String path, String content, boolean append) {
 		
 		try(FileWriter writer = new FileWriter(path, append)) {

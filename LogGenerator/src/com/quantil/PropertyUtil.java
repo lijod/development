@@ -10,10 +10,18 @@ public class PropertyUtil {
 	
 	private PropertyUtil() {}
 	
+	/**
+	 * Public getter for properties
+	 * @return
+	 */
 	public static Properties getProperty() {
 		return prop;
 	}
 	
+	/**
+	 * Returns a property object corresponding to the application properties
+	 * @return A property object corresponding to the application properties
+	 */
 	private static Properties loadProperty() {
 		InputStream inputStream = PropertyUtil.class.getResourceAsStream("app.properties");
 		Properties prop = new Properties();

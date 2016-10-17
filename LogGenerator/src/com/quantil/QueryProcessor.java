@@ -56,13 +56,14 @@ public class QueryProcessor {
 	 * @return
 	 */
 	private boolean generateServerCatalog() {
-		System.out.println("Loading log file for query processing, estimated time 3-4 mins...");
+		System.out.println("Loading log file for query processing, estimated time: 3-4 mins...");
 		
 		long start = System.currentTimeMillis();
 		int uniqueTimeCount = 0;
 		
 		// Holds server ip as key and list of tuples (timestamp, offset) as value.
 		// This will be flushed to catalog file
+		// Key = <Server IP>  Value= [<timestamp1,offset1> <timestamp2,offset2>...]
 		HashMap<String, List<long[]>> serverTimeOffset = new LinkedHashMap<>();
 		
 		String logPath = Utility.getLogPath();
@@ -79,6 +80,7 @@ public class QueryProcessor {
 				
 				String[] logLineSplit = logLine.split("\t");
 				if(logLineSplit.length != 4) {
+					logOffset = file.getFilePointer();
 					continue;
 				}
 				
@@ -86,6 +88,7 @@ public class QueryProcessor {
 				
 				// Only saves offset for 1st ip occurrence
 				if(prevServerId.equals(serverId)) {
+					logOffset = file.getFilePointer();
 					continue;
 				}
 				
@@ -148,7 +151,7 @@ public class QueryProcessor {
 					} else if (input.startsWith("QUERY")) {
 						System.out.println("Querying...");
 						String[] inputSplit = input.split(" +");
-					
+						
 						if(inputSplit.length != 7) {
 							System.out.println("Invalid input for query, please try again...");
 							continue;
@@ -156,6 +159,10 @@ public class QueryProcessor {
 						
 						long startTime = Utility.getUnixTime(inputSplit[3] + " " + inputSplit[4], AppConstants.DATE_TYPE_yyyyMMddHHmm);
 						long endTime = Utility.getUnixTime(inputSplit[5] + " " + inputSplit[6], AppConstants.DATE_TYPE_yyyyMMddHHmm);
+						
+						if(startTime > endTime) {
+							throw new IllegalArgumentException("End time should be after Start time, please try again!");
+						}
 						
 						System.out.println(String.format("CPU %s usage on: %s", inputSplit[2], inputSplit[1]));
 						System.out.println(getUsage(inputSplit[1], inputSplit[2], startTime, endTime));
@@ -168,6 +175,8 @@ public class QueryProcessor {
 						continue;
 					}
 				
+				} catch(IllegalArgumentException e) {
+					System.out.println(e.getMessage());
 				} catch (ParseException e) {
 					System.out.println("Time format invalid, please check you input...");
 				} catch (IOException e) {
@@ -205,11 +214,19 @@ public class QueryProcessor {
 			RandomAccessFile catalogFile = new RandomAccessFile(catalogPath, AppConstants.ACCESSTYPE_READ)) {
 			
 			// Point to server in catalog file
-			catalogFile.seek(serverOffsetCatalog.get(serverId)); // Throw illegal IP exception
+			if(serverOffsetCatalog.containsKey(serverId)) {
+				catalogFile.seek(serverOffsetCatalog.get(serverId));
+			} else {
+				throw new IllegalArgumentException("Server IP is not valid, please try again!");
+			}
 			
 			String serverInfo = catalogFile.readLine();
 			String[] catalog = serverInfo.split(" ");
-			int catalogIndex = 1;
+			int catalogIndex = getStartTimeIndex(catalog, startTime);
+			
+			if(catalogIndex == -1) {
+				throw new IllegalArgumentException("Start time entered is not valid, please try again!");
+			}
 			
 			// Get log usage for startTime and increment it by a min (60 sec) until 
 			// endTime is reached
@@ -238,7 +255,11 @@ public class QueryProcessor {
 						continue;
 					}
 					
-					if(lineSplit[1].equals(serverId) && lineSplit[2].equals(cpuId)) {
+					if(!lineSplit[1].equals(serverId)) {
+						throw new IllegalArgumentException("Invalid CPU ID, please try again!");
+					}
+					
+					if(lineSplit[2].equals(cpuId)) {
 						Date date = new Date((long) startTime * 1000);
 						sb.append(getFormattedQueryResult(dateFormat.format(date), lineSplit[3]));
 						break;
@@ -248,6 +269,8 @@ public class QueryProcessor {
 				// Increment start time by a minute
 				startTime += 60;
 			}
+		} catch(IllegalArgumentException e) {
+			System.out.println(e.getMessage());
 		} catch(Exception e) {
 			System.out.println("An error occured while processing the query, please try again!");
 			e.printStackTrace();
@@ -285,6 +308,7 @@ public class QueryProcessor {
 					String oldValue = oldFile.readLine();
 					value = oldValue + " " + value;
 				}
+				// Updates the new offset for current Server IP address
 				serverOffsetCatalog.put(serverId, newFile.getFilePointer());
 				newFile.writeBytes(value + System.lineSeparator());
 			}
@@ -317,13 +341,45 @@ public class QueryProcessor {
 	}
 	
 	/**
+	 * Does a binary search on catalog array to find the start time, 
+	 * returns index if found else -1
+	 * @param catalog Array with tuples <TIMESTAMP,OFFSET>
+	 * @param startTime Start time to be search
+	 * @return Index of start time in input array
+	 */
+	private int getStartTimeIndex(String[] catalog, long startTime) {
+		
+		int start = 1;
+		int end = catalog.length - 1;
+		
+		while(start <= end) {
+			int mid = start + (end - start) / 2;
+			
+			String tuple = catalog[mid];
+			long currTime = Long.parseLong(tuple.split(",")[0]);
+			
+			if(startTime == currTime) {
+				return mid;
+			} else if(startTime < currTime) {
+				end = mid - 1;
+			} else {
+				start = mid + 1;
+			}
+			
+		}
+		
+		return -1;
+		
+	}
+	
+	/**
 	 * Returns a string representation of <date,usage>
 	 * Format: (<Date>, <Usage>%) 
 	 * @param date Date-Time of log
 	 * @param usage Percent used
 	 * @return String representation of 
 	 */
-	private static String getFormattedQueryResult(String date, String usage) {
+	private String getFormattedQueryResult(String date, String usage) {
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("(");
@@ -343,7 +399,6 @@ public class QueryProcessor {
 		System.out.println("Please enter one of the options:");
 		System.out.println("1. ");
 		System.out.println("QUERY <SERVER IP> <CPU ID> <START TIME> <END TIME>");
-		System.out.println("Time Format: " + AppConstants.DATE_TYPE_yyyyMMddHHmm);
 		System.out.println("2. ");
 		System.out.println("EXIT");
 		System.out.print(">");

@@ -144,7 +144,7 @@ public class Generator {
 	 * Returns a list of strings representing IP addresses of server based on the server count 
 	 * specified in the input. 
 	 * Server range: 192.168.0.0 - 192.168.255.255
-	 * @param serverCount
+	 * @param serverCount Count of server
 	 * @return List of strings representing IP addresses of server
 	 */
 	private List<String> populateServerList(int serverCount) {

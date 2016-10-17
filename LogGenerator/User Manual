@@ -1,0 +1,24 @@
+To run the generator:
+./generate.sh DATA_PATH
+
+To run the interactive query tool:
+./query.sh DATA_PATH
+
+To execute a query, enter a query in the below format:
+QUERY <SERVER IP> <CPU ID> <START TIME> <END TIME>
+SERVER IP - This should be a valid server ip address which is being monitored
+			If number.of.servers is set to 0, valid server ip is between range 192.168.0.0 - 192.168.3.231
+CPU ID - This whould be a valid CPU ID.
+			If number.of.cpu.per.server is set to 2, valid cpu id is between 0-1
+START TIME/END TIME format - yyyy-MM-dd HH:mm
+
+Sample:
+>QUERY 192.168.1.10 1 2014-10-31 00:00 2014-10-31 00:05
+CPU1 usage on 192.168.1.10:
+(2014-10-31 00:00, 90%), (2014-10-31 00:01, 89%), (2014-10-31 00:02, 87%), (2014-10-31 00:03,  94%) (2014-10-31 00:04, 88%)
+>QUERY 192.168.1.12 0 2014-10-31 00:00 2014-10-31 00:05
+CPU0 usage on 192.168.1.12:
+(2014-10-31 00:00, 90%), (2014-10-31 00:01, 89%), (2014-10-31 00:02, 87%), (2014-10-31 00:03,  94%), (2014-10-31 00:04, 88%)
+>EXIT
+
+To update application properties, edit com/quantil/app.properties
