@@ -75,12 +75,12 @@ public class Utility {
 	 * @return Number of record to be written per batch when writing log files
 	 */
 	public static int getFlushPerCount() {
-		return Integer.parseInt(prop.getProperty("flush.record.per"))	;
+		return Integer.parseInt(prop.getProperty("flush.record.per"));
 	}
 
 	/**
-	 * 
-	 * @param appDir Local directory in which application files are processed 
+	 * Sets the app.dor in application properties
+	 * @param appDir Local directory in which application files are processed
 	 */
 	public static void setAppDir(String appDir) {
 		prop.setProperty("app.dir", appDir);

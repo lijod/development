@@ -2,6 +2,12 @@ package com.quantil;
 
 import java.text.ParseException;
 
+/**
+ * Driver class calls the class specified in the command line and passes 
+ * the input path to it.
+ * @author lijodaniel
+ *
+ */
 public class Driver {
 	public static void main(String[] args) throws ParseException {		
 		

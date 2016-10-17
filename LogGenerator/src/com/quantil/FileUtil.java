@@ -3,6 +3,11 @@ package com.quantil;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * FileUtil class contains static utility methods for I/O operation
+ * @author lijodaniel
+ *
+ */
 public class FileUtil {
 	
 	/**
