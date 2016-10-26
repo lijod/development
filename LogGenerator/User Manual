@@ -21,4 +21,4 @@ CPU0 usage on 192.168.1.12:
 (2014-10-31 00:00, 90%), (2014-10-31 00:01, 89%), (2014-10-31 00:02, 87%), (2014-10-31 00:03,  94%), (2014-10-31 00:04, 88%)
 >EXIT
 
-To update application properties, edit com/quantil/app.properties
+To update application properties, edit com/processor/app.properties

@@ -9,4 +9,4 @@ then
     rm log_file
 fi 
 
-java -cp src com.quantil.Driver Generator "$1"
+java -cp src com.processor.Driver Generator "$1"

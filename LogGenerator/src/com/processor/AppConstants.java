@@ -1,4 +1,4 @@
-package com.quantil;
+package com.processor;
 
 public class AppConstants {
 	public static String DATE_TYPE_yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss";

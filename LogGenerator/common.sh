@@ -3,6 +3,6 @@ if [ "$1" == "" ]; then
     exit
 fi
 
-rm src/com/quantil/*.class
+rm src/com/processor/*.class
 
-javac src/com/quantil/*.java
+javac src/com/processor/*.java
