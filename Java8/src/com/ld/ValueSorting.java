@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 public class ValueSorting {
-
+	
 	public static void main(String[] args) {
 		
 		java.util.Map<String, Integer> map = new HashMap<>();

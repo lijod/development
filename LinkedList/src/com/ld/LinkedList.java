@@ -34,10 +34,12 @@ public class LinkedList <T extends Comparable<T>> {
 	
 	public Node add(T data) {
 		Node temp = this.head;
+		
 		if(temp == null) {
 			this.head = new Node(data);
 			return this.head;
 		}
+		
 		while(temp.next != null) {
 			temp = temp.next;
 		}
@@ -270,10 +272,9 @@ public class LinkedList <T extends Comparable<T>> {
 		
 		Node prev = null;
 		Node current = this.head;
-		Node next = null;
 		
 		while(current != null) {
-			next = current.next;
+			Node next = current.next;
 			current.next = prev;
 			prev = current;
 			current = next;
@@ -483,6 +484,7 @@ public class LinkedList <T extends Comparable<T>> {
 			prev = temp;
 			temp = temp.next;
 			if(data.compareTo(temp.data) <= 0) {
+				prev.next = newNode;
 				newNode.next = temp;
 				return;
 			}
@@ -749,7 +751,7 @@ public class LinkedList <T extends Comparable<T>> {
 		Node left = mergeSortHelper(node);
 		Node right = mergeSortHelper(secondHalf);
 		
-		return merge(left, right);	
+		return merge(left, right);
 	}
 	
 	public void reverseK(int k) {
@@ -1028,6 +1030,7 @@ public class LinkedList <T extends Comparable<T>> {
 		
 	}
 	
+	// Sort LL with values 0,1,2
 	public void sortRepeated() {
 		int[] repetation = new int[3];
 		
